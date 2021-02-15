@@ -1,18 +1,17 @@
 ### Íris, a BOT
-Uma bot em português feita para PC, originalmente para o grupo Legião Z no WhatsApp, possui mais de 150 comandos e continua em crescimento.
+Un bot en portugués hecho para PC, originalmente para el grupo Legião Z en WhatsApp, tiene más de 150 comandos y sigue creciendo.
 
-### Usar apenas no Telefone
-No celular é dificilimo que você consiga usar, portanto, use o site [Goorm](https://ide.goorm.io) para criar sua BOT pelo telefone.
+### Usar solo en el teléfono
+En el móvil, es muy difícil para ti usarlo, así que usa el sitio web de [Goorm](https://ide.goorm.io) para crear tu BOT por teléfono.
 
-### Pedido Pessoal
-Por favor NÃO REMOVA os creditos, levei muito tempo e precisei ter muita dedicação pra se criar uma BOT Brasileira assim, agradeço pela cooperação.
+### Solicitud personal
+Por favor NO QUITE créditos, me tomó mucho tiempo y necesitaba mucha dedicación para crear un BOT brasileño como ese, gracias por su cooperación.
 
-### Para os donos
-Você pode rodar comandos de Windows como "ipconfig", comandos de linux como "apt", ou comandos de programações como python -c tudo pelo WhatsApp, ninguém além de você pode usar isso, se você deseja que usem, remova a linha if (!isOnwer) [aqui](https://github.com/KillovSky/iris/blob/master/config.js#L3537), mas saiba que remove-la pode ser perigoso a você.
+### Traducido por Samu330
 
-### Funções (Não são todas, +130)
+### Funciones (no todas, +130)
 
-| Função |Contém|
+| Función|Contiene|
 | ------------- | ------------- |
 | Pausar BOT |✅|
 | Puxar alguns dados |✅|
@@ -60,40 +59,40 @@ Você pode rodar comandos de Windows como "ipconfig", comandos de linux como "ap
 | Informações de Grupo/Perfil |✅|
 | Outros (Lista tem mais de 130) |✅|
 
-### Instalação
-Você precisa ter esse repositorio, é simples, rode os comandos abaixo, em caso de erros, rode como sudo/administrador.
+### Instalación
+Necesita tener este repositorio, es simple, ejecute los siguientes comandos, en caso de errores, ejecútelo como sudo/administrador.
 
 ```bash
-> git clone https://github.com/KillovSky/iris.git
+> git clone https://github.com/Samu330/iris.git
 > cd iris
 > npm i
 ```
 
 ### Iniciar
-Para iniciar digite o comando abaixo e espere, após isso, escaneie o QR Code.
+Para comenzar, ingrese el comando a continuación y espere, luego de eso, escanee el código QR.
 
 ```bash
 > npm start
 ```
 
-### Ver todos os comandos
-Digite no seu chat a mensagem:
+### Ver todos los comandos
+Escriba en su chat el mensaje:
 
 ```bash
 > /menu
 ```
 
-### Crie seus comandos
-Abra sua config.js e ache um lugarzinho em branco bonito, darei um exemplo de resposta simples, va testando como quiser, a outros tipos, você pode ver quais por [aqui](https://docs.openwa.dev/classes/client.html) e na duvida, chame-me por [aqui](https://chat.whatsapp.com/H53MdwhtnRf7TGX1VJ2Jje) ou [aqui](https://wa.me/+5518998044132).
+### Crea tus comandos
+Abre tu config.js y encuentra un pequeño espacio en blanco, te daré un ejemplo de una respuesta simple, ve a probarlo como quieras, a otros tipos, puedes ver cuáles aquí [https://docs.openwa.dev/classes/client.html) y en caso de duda, llámame por [aquí](https://wa.me/+529984907794).
 
 ```bash
-case 'Nome do comando sem espaços':
-    await kill.reply(from, 'Sua mensagem', id)
+case 'nombre del comando sin espacios':
+    await kill.reply(from, 'Su mensaje', id)
     break
  ```
 
-### Mudanças
-Edite as API's encontradas em: (Se estiver incorreta avise ou procure)
+### Cambios
+Edite las API que se encuentran en: (Si es incorrecta, avísenos o busque)
 
 - [API 1](https://github.com/KillovSky/iris/blob/master/lib/config/config.json#5)
 - [API 2](https://github.com/KillovSky/iris/blob/master/lib/config/config.json#6)
@@ -105,41 +104,28 @@ Edite as API's encontradas em: (Se estiver incorreta avise ou procure)
 - [Número 1 & 2](https://github.com/KillovSky/iris/blob/master/lib/config/config.json#2)
 - [DDI](https://github.com/KillovSky/iris/blob/main/lib/welcome.js#L8)
 - [Bomber](https://github.com/KillovSky/iris/blob/master/config.js#L3523)
-- Elas são referentes aos sites [RemoveBG](https://www.remove.bg/pt-br), [ImgBB](https://api.imgbb.com/) e [AlphaCoders](https://wall.alphacoders.com/api.php)
-- A DDI é obrigatoria apenas caso você for de fora do Brasil, o Bomb apenas se você usar Linux.
-- Sempre leia a aba de discussões do github para saber mais.
+- Se refieren a los sitios [RemoveBG](https://www.remove.bg/pt-br), [ImgBB](https://api.imgbb.com/) y [AlphaCoders](https://wall.alphacoders.com/api.php)
+- La DDI es obligatoria solo si es de fuera de Brasil, Bomb solo si usa Linux.
+- Siempre lea la pestaña de discusión de github para obtener más información.
 
 ### Brainly
-Depois de terminar a instalação siga esses passos para deixar seu brainly em português:
+Después de terminar la instalación, siga estos pasos para dejar su bot en español:
 
 ```
-Abra a brainly.js na pasta iris\node_modules\brainly-scraper\src
-Mude a graphql/id para graphql/pt
+Abra  brainly.js iris\node_modules\brainly-scraper\src
+Cambie graphql/id para graphql/es
 ```
 
 ### Computer-Freaker/Axios
-Para fixar o funcionamento da API da Computer-Freaker, que é responsavel por diversos comandos (hug, hentai, dva, baguette...), siga os passos desse [Mini-Tutorial](https://github.com/KillovSky/iris/discussions/10).
+Para corregir el funcionamiento de la API Computer-Freaker, que es responsable de varios comandos (hug, hentai, dva, baguette...), sigue los pasos [Mini-Tutorial](https://github.com/KillovSky/iris/discussions/10).
 
 ### Bugs
-Se notar erros fale comigo pelos meios no final da pagina ou reporte no Issues, e claro, se certifique de ter chrome instalado e ler a aba [Discussions](https://github.com/KillovSky/iris/discussions), lá eu coloco soluções.
-Baixe Chrome por [aqui](https://www.google.com/chrome), no linux use os comandos abaixo.
+Si nota errores, hable conmigo por los medios en la parte inferior de la página o informe sobre problemas y, por supuesto, asegúrese de tener Chrome instalado y lea la pestaña [Discussions](https://github.com/KillovSky/iris/discussions), ahí pongo soluciones.
+Descarga Chrome por [aqui](https://www.google.com/chrome), en linux usa los siguientes comandos.
 
 ```bash
 > wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 > sudo apt install ./google-chrome-stable_current_amd64.deb
 ```
 
-## Agradecimentos ao:
-- [Open-WA](https://github.com/open-wa)
-- [ArugaZ](https://github.com/ArugaZ)
-- [MhankBarBar](https://github.com/MhankBarBar)
-- [Tio das Trevas](https://github.com/TioDasTrevas)
-- [Jon](https://github.com/Jonn001)
-- [SlavyanDesu](https://github.com/SlavyanDesu)
-- Agradeço de coração a todos vocês!
 
-## Doar e Suporte
-- [Doações] - Ajude-me a criar comandos, doe algo pelo PicPay ❤️ - [Doar](https://picpay.me/userlucas123)
-- [PIX] - fc270199-2d55-4d91-be5c-bfbd431cfad4
-- [Grupo Oficial] - Não somos grupos de travas - [Entrar](https://chat.whatsapp.com/H53MdwhtnRf7TGX1VJ2Jje)
-- [Dono] - Se precisar falar comigo - [Falar](https://wa.me/+5518998044132)
