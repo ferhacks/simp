@@ -31,6 +31,7 @@ const { meme, msgFilter, translate, killo, ngtts } = require('./lib')
 const { uploadImages } = require('./lib/fether')
 const feature = require('./lib/poll')
 const { sobre } = require('./lib/sobre')
+const { belle } = require('./lib/belle')
 const BrainlySearch = require('./lib/brainly')
 const { coins } = require('./lib/coins')
 moment.tz.setDefault('Mexico/Cancun').locale('es_QR')
@@ -240,10 +241,17 @@ module.exports = kconfig = async (kill, message) => {
             }
             break
 			
+		case 'samu330':
+		case 'samu':
+			//SI VAN A MODIFICAR EL BOT, PORFAVOR NO QUITAR NI MODIFICAR ESTA PARTE PORFAVOR, GRACIAS.
+    			await kill.reply(from, '😍🤗 *GRACIAS POR INTERESARTE EN MI* Y GRACIAS POR USAR MI BOT\n\n*TE GUSTARIA APOYARME?😖*\nPls no es complicado, solo te pido una suscripcion a mi canal:D\nSI?😰\nAIIII GRACIAS☺, AVER PS, AQUI TE DEJO MI CANAL:D\n\nhttps://www.youtube.com/channel/UCHD4T8Pfcv5PFVzsAbfAPZA\n\n_SI COMPARTES ME AYUDARIAS MAS_ *GRACIAS!😉*', id)
+   			break
+			//________________________________________________________________________________________
+			
 
 		case 'ttp':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
-			if (args.length == 0) return kill.reply(from, 'Cadê a frase né?', id)
+			if (args.length == 0) return kill.reply(from, '¿Dónde está la frase?', id)
 			axios.get(`https://st4rz.herokuapp.com/api/ttp?kata=${body.slice(5)}`)
 			.then(res => {
 				kill.sendImageAsSticker(from, res.data.result)
@@ -275,6 +283,11 @@ module.exports = kconfig = async (kill, message) => {
 		case 'about':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
 			await kill.sendFile(from, './lib/media/img/iris.png', 'iris.png', sobre, id)
+			break
+			
+		case 'belle':
+			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
+			await kill.sendFile(from, './lib/media/img/belle.png', 'belle.png', belle, id)
 			break
 
 			
