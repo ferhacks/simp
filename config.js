@@ -66,7 +66,7 @@ module.exports = kconfig = async (kill, message) => {
         const groupId = isGroupMsg ? chat.groupMetadata.id : ''
         const groupAdmins = isGroupMsg ? await kill.getGroupAdmins(groupId) : ''
         const isGroupAdmins = isGroupMsg ? groupAdmins.includes(sender.id) : false
-        const isBotGroupAdmins = isGroupMsg ? groupAdmins.includes(botNumber + '9984907794@c.us') : false
+        const isBotGroupAdmins = isGroupMsg ? groupAdmins.includes(botNumber + '@c.us') : false
         const isNsfw = isGroupMsg ? nsfw_.includes(chat.id) : false
         const autoSticker = isGroupMsg ? atstk.includes(groupId) : false
         const chats = (type === 'chat') ? body : ((type === 'image' || type === 'video')) ? caption : ''
@@ -1471,7 +1471,7 @@ module.exports = kconfig = async (kill, message) => {
         case 'iris':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
 			try {
-				const iris = await axios.get(`http://simsumi.herokuapp.com/api?text=${body.slice(6)}&lang=pt`)
+				const iris = await axios.get(`http://simsumi.herokuapp.com/api?text=${body.slice(6)}&lang=es`)
 				if (iris.data.success == '') {
 					console.log('Solicitud fallida, usando respuestas locales...')
 					let rndrl = fs.readFileSync('./lib/config/reply.txt').toString().split('\n')
