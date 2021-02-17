@@ -66,7 +66,7 @@ module.exports = kconfig = async (kill, message) => {
         const groupId = isGroupMsg ? chat.groupMetadata.id : ''
         const groupAdmins = isGroupMsg ? await kill.getGroupAdmins(groupId) : ''
         const isGroupAdmins = isGroupMsg ? groupAdmins.includes(sender.id) : false
-        const isBotGroupAdmins = isGroupMsg ? groupAdmins.includes(botNumber + '@c.us') : false
+        const isBotGroupAdmins = isGroupMsg ? groupAdmins.includes(botNumber + '9984907794@c.us') : false
         const isNsfw = isGroupMsg ? nsfw_.includes(chat.id) : false
         const autoSticker = isGroupMsg ? atstk.includes(groupId) : false
         const chats = (type === 'chat') ? body : ((type === 'image' || type === 'video')) ? caption : ''
@@ -1396,7 +1396,7 @@ module.exports = kconfig = async (kill, message) => {
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
 			const sppt = require('node-gtts')('es')
 			try {
-				const spiris = await axios.get(`http://simsumi.herokuapp.com/api?text=${body.slice(7)}&lang=pt`)
+				const spiris = await axios.get(`http://simsumi.herokuapp.com/api?text=${body.slice(7)}&lang=es`)
 				const a = spiris.data.success
 				if (a == '') {
 					console.log('Solicitud fallida, usando respuestas locales...')
@@ -1594,7 +1594,6 @@ module.exports = kconfig = async (kill, message) => {
         case 'welcome':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
 			if (!isGroupMsg) return kill.reply(from, mess.error.Gp, id)
-			if (!isOwner) return kill.reply(from, mess.error.Kl, id)
             if (args.length !== 1) return kill.reply(from, 'Olvidaste establecer entre activado [on], o desactivado [off].', id)
 			if (args[0] == 'on') {
                 welkom.push(chat.id)
@@ -1708,7 +1707,7 @@ module.exports = kconfig = async (kill, message) => {
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
        		if (args.length == 0) return kill.reply(from, 'Escriba el nombre de la ciudad.', id)
             try {
-				const clima = await axios.get(`https://pt.wttr.in/${body.slice(7)}?format=Cidade%20=%20%l+\n\nEstado%20=%20%C+%c+\n\nTemperatura%20=%20%t+\n\nUmidade%20=%20%h\n\nVento%20=%20%w\n\nLua agora%20=%20%m\n\nNascer%20do%20Sol%20=%20%S\n\nPor%20do%20Sol%20=%20%s`)
+				const clima = await axios.get(`https://pt.wttr.in/${body.slice(7)}?format=Ciudad%20=%20%l+\n\nEstado%20=%20%C+%c+\n\nTemperatura%20=%20%t+\n\nUnidades%20=%20%h\n\nViento%20=%20%w\n\nLuna ahora%20=%20%m\n\nNascer%20do%20Sol%20=%20%S\n\nPor%20do%20Sol%20=%20%s`)
 				await kill.sendFileFromUrl(from, `https://wttr.in/${body.slice(7)}.png`, '', `La foto de arriba contiene un pronóstico de 2 días, el mensaje de abajo es el clima ahora.\n\n${clima.data}`, id)
             } catch {
                 kill.reply(from, 'Extraño ... \nAsegúrate de no usar acentos, ok?', id)
@@ -2577,7 +2576,7 @@ module.exports = kconfig = async (kill, message) => {
 
         case 'tela':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
-            if (!isOwner) return kill.reply(from, 'Este comando es solo para mi creador', id)
+            if (args.length == 0) return kill.reply(from, 'Este comando es solo para mi creador', id)
             const sesPic = await kill.getSnapshot()
             kill.sendFile(from, sesPic, 'session.png', 'Neh...', id)
             break
@@ -2670,7 +2669,6 @@ module.exports = kconfig = async (kill, message) => {
         case 'exclusive':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
             if (!isGroupMsg) return kill.reply(from, 'Solo grupos!', id)
-			if (!isOwner) return kill.reply(from, 'Este comando es solo para mi creador', id)
             if (args.length !== 1) return kill.reply(from, 'Defina entre on y off!', id)
 			if (args[0] == 'on') {
                 exsv.push(chatId)
