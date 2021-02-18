@@ -66,7 +66,7 @@ module.exports = kconfig = async (kill, message) => {
         const groupId = isGroupMsg ? chat.groupMetadata.id : ''
         const groupAdmins = isGroupMsg ? await kill.getGroupAdmins(groupId) : ''
         const isGroupAdmins = isGroupMsg ? groupAdmins.includes(sender.id) : false
-        const isBotGroupAdmins = isGroupMsg ? groupAdmins.includes(botNumber + '@c.us') : false
+        const isBotGroupAdmins = isGroupMsg ? groupAdmins.includes(botNumber + '529984907794@c.us') : true
         const isNsfw = isGroupMsg ? nsfw_.includes(chat.id) : false
         const autoSticker = isGroupMsg ? atstk.includes(groupId) : false
         const chats = (type === 'chat') ? body : ((type === 'image' || type === 'video')) ? caption : ''
@@ -92,6 +92,7 @@ module.exports = kconfig = async (kill, message) => {
         global.pollfile = 'poll_Config_'+chat.id+'.json'
         global.voterslistfile = 'poll_voters_Config_'+chat.id+'.json'
 		global.client = kill
+	
 		
 		// OUTRAS
         const double = Math.floor(Math.random() * 2) + 1
@@ -616,20 +617,22 @@ module.exports = kconfig = async (kill, message) => {
             }
             break
 			
+		
 			
-		case 'onlyadms':
+			
+	    case 'onlyadms':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
 			onar = body.trim().split(/ +/).slice(1)
 			if (!isGroupMsg) return kill.reply(from, mess.error.Gp, id)
             if (!isGroupAdmins) return kill.reply(from, mess.error.Ga, id)
             if (!isBotGroupAdmins) return kill.reply(from, mess.error.Ba, id)
-			if (onar.length !== 1) return kill.reply(from, `Olvidaste establecer entre activado [On], o desactivado [Off].`, id)
+			if (onar.length !== 1) return kill.reply(from, `Olvidaste encenderlo (ON) o apagarlo [Off].`, id)
             if (onar[0] == 'on') {
-				kill.setGroupToAdminsOnly(groupId, true).then(() => kill.sendText(from, 'Se cierra el grupo, en unos momentos se abre'))
+				kill.setGroupToAdminsOnly(groupId, true).then(() => kill.sendText(from, 'Se cierra el grupo!\nSE ABRIRA EN UNOS MOMENTOS :)'))
 			} else if (onar[0] == 'off') {
-				kill.setGroupToAdminsOnly(groupId, false).then(() => kill.sendText(from, 'YA PUEDEN ENVIAR MENSAJES😙😙! :D'))
+				kill.setGroupToAdminsOnly(groupId, false).then(() => kill.sendText(from, 'Ya pueden escribir gente!! NOMAS NO LLENEN EL CHAT!!🥶'))
 			} else {
-				kill.reply(from, `Olvidaste establecer entre activado [On], o desactivado [Off].`, id)
+				kill.reply(from, `Olvidaste encenderlo (ON) o apagarlo [Off].`, id)
 			}
 			break
 			
@@ -3741,6 +3744,48 @@ module.exports = kconfig = async (kill, message) => {
             } else {
                 await kill.reply(from, 'Defina entre [on] e [off].', id)
             }
+			break
+			
+			
+	case 'unblock':
+			if (isOwner) {
+				if (isGroupMsg && quotedMsg) {
+					const unblokea = quotedMsgObj.sender.id
+					await kill.contactUnblock(`${unblokea}`)
+					await kill.sendTextWithMentions(from, `Listo! el @${unblokea} ha sido desbloqueado de mi WhatsApp.`)
+				} else {
+					await kill.contactUnblock(`${args[0]}@c.us`)
+					await kill.sendTextWithMentions(from, `Listo! el @${args[0]} ha sido desbloqueado de mi WhatsApp.`)
+				}
+			} else {
+				await kill.reply(from, mess.error.Kl, id)
+			}
+			break
+			
+		
+		case 'block':
+			if (isOwner) {
+				if (isGroupMsg && quotedMsg) {
+					const blokea = quotedMsgObj.sender.id
+					await kill.contactBlock(`${blokea}`)
+					await kill.sendTextWithMentions(from, `Hecho! el @${blokea} foi bloqueado do meu WhatsAppfue bloqueado de mi WhatsApp.`)
+				} else {
+					await kill.contactBlock(`${args[0]}@c.us`)
+					await kill.sendTextWithMentions(from, `Listo! el @${args[0]} ha sido desbloqueado de mi WhatsApp.`)
+				}
+			} else {
+				await kill.reply(from, mess.error.Kl, id)
+			}
+			break
+			
+			
+		case 'allid':
+			const gpids = await kill.getAllGroups()
+			let idmsgp = ''
+			for (let ids of gpids) {
+				idmsgp += `➸ ${ids.contact.name} =\n${ids.contact.id.replace(/@g.us/g,'')}\n\n`
+            }
+			await kill.reply(from, 'Estos son actualmente mis grupos:\n\n' + idmsgp, id)
 			break
 
         }
