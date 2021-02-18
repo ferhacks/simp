@@ -1462,7 +1462,7 @@ module.exports = kconfig = async (kill, message) => {
 				await aki.start();
 				const myAnswer = `${args[1]}`
 				await aki.step(myAnswer);
-				await kill.reply(from, `Questão: ${aki.question}\n\nProgresso: ${aki.progress}\n\nResponda com /akinator -r [0 ou 1], 0 = sim, 1 = não.`, id)
+				await kill.reply(from, `Pregunta: ${aki.question}\n\nProgreso: ${aki.progress}\n\nResponda co /aki -r [0 o 1], 0 = si, 1 = no.`, id)
 			} else {
 				const aki = new Aki(region);
 				await aki.start()
