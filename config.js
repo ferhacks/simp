@@ -66,7 +66,7 @@ module.exports = kconfig = async (kill, message) => {
         const groupId = isGroupMsg ? chat.groupMetadata.id : ''
         const groupAdmins = isGroupMsg ? await kill.getGroupAdmins(groupId) : ''
         const isGroupAdmins = isGroupMsg ? groupAdmins.includes(sender.id) : false
-        const isBotGroupAdmins = isGroupMsg ? groupAdmins.includes(botNumber + '529984907794@c.us') : true
+        const isBotGroupAdmins = isGroupMsg ? groupAdmins.includes(botNumber + '@c.us') : false
         const isNsfw = isGroupMsg ? nsfw_.includes(chat.id) : false
         const autoSticker = isGroupMsg ? atstk.includes(groupId) : false
         const chats = (type === 'chat') ? body : ((type === 'image' || type === 'video')) ? caption : ''
