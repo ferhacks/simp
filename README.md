@@ -11,6 +11,10 @@ Por favor NO QUITE créditos, me tomó mucho tiempo y necesitaba mucha dedicaci�
 
 ### Funciones (no todas, +130)
 
+<p align="center">
+<img src="https://www.crackingpro.com/uploads/team_member.gif" width="128" height="135"/>
+</p>
+
 | Función|Contiene|
 | ------------- | ------------- |
 | Pausar BOT |✅|
