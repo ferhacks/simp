@@ -1567,7 +1567,7 @@ module.exports = kconfig = async (kill, message) => {
 
         case 'nsfw':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
-       	    const isGroupOwner = sender.id === chat.groupMetadata.owner
+       	    const isGroupAdmins = sender.id === chat.groupMetadata.owner
             if (args.length !== 1) return kill.reply(from, 'Defina enable o disable', id)
 			if (isGroupMsg && isGroupOwner) {
 				if (args[0].toLowerCase() == 'enable') {
@@ -1581,7 +1581,7 @@ module.exports = kconfig = async (kill, message) => {
 				} else {
 					kill.reply(from, 'Defina enable o disable', id)
 				}
-			} else if (isGroupMsg && isOwner) {
+			} else if (isGroupMsg) {
 				if (args[0].toLowerCase() == 'enable') {
 					nsfw_.push(chat.id)
 					fs.writeFileSync('./lib/config/NSFW.json', JSON.stringify(nsfw_))
