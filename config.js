@@ -2402,24 +2402,48 @@ module.exports = kconfig = async (kill, message) => {
 
 
         case 'kick':
-			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
 			const chief = chat.groupMetadata.owner
-			if (isGroupMsg && isGroupAdmins || isGroupMsg && isOwner) {
+			if (isGroupMsg && isGroupAdmins) {
 				if (!isBotGroupAdmins) return kill.reply(from, mess.error.Ba, id)
-				if (quotedMsg) {
-					const negquo = quotedMsgObj.sender.id
-					if (chief.includes(negquo)) return kill.reply(from, 'Si lo se....😖 esa persona arta, pero no lo puedo sacar por que el creo el grupo😰. Tendremos que segir awantandolo😬', id)
-					await kill.sendTextWithMentions(from, `Expulsando participante @${negquo} del grupo...`)
-					await kill.removeParticipant(groupId, negquo)
-				} else {
-					if (mentionedJidList.length == 0) return kill.reply(from, 'Escribiste el comando muy mal, arréglalo y envíalo bien.', id)
-					await kill.sendTextWithMentions(from, `Expulsando participante ${mentionedJidList.map(x => `@${x.replace('@c.us', '')}`).join('\n')} del grupo...`)
-					for (let i = 0; i < mentionedJidList.length; i++) {
-						if (chief.includes(mentionedJidList[i])) return kill.reply(from, 'Si lo se....😖 esa persona arta, pero no lo puedo sacar por que el creo el grupo😰. Tendremos que segir awantandolo😬', id)
-						if (ownerNumber.includes(mentionedJidList[i])) return kill.reply(from, 'Desafortunadamente, es un mienbro VIP, que no puedo expulsar.', id)
-						if (groupAdmins.includes(mentionedJidList[i])) return kill.reply(from, mess.error.Kl, id)
-						await kill.removeParticipant(groupId, mentionedJidList[i])
+				if (mentionedJidList.length === 0) return kill.reply(from, 'Escribiste el comando muy mal, arréglalo y envíalo bien.', id)
+				await kill.sendTextWithMentions(from, `Expulsando participante ${mentionedJidList.map(x => `@${x.replace('@c.us', '')}`).join('\n')} del grupo...`)
+				for (let i = 0; i < mentionedJidList.length; i++) {
+					if (chief.includes(mentionedJidList[i])) return kill.reply(from, 'Si lo se....😖 esa persona arta, pero no lo puedo sacar por que el creo el grupo😰. Tendremos que segir awantandolo😬', id)
+					if (ownerNumber.includes(mentionedJidList[i])) return kill.reply(from, 'Infelizmente, ele é um bebado VIP, não posso expulsar.', id)
+					if (groupAdmins.includes(mentionedJidList[i])) return kill.reply(from, mess.error.Ki, id)
+					await kill.removeParticipant(groupId, mentionedJidList[i])
+				}
+			} else if (isGroupMsg && isOwner) {
+				if (!isBotGroupAdmins) return kill.reply(from, mess.error.Ba, id)
+				if (mentionedJidList.length === 0) return kill.reply(from, 'Escribiste el comando muy mal, arréglalo y envíalo bien.', id)
+				await kill.sendTextWithMentions(from, `Expulsando participante ${mentionedJidList.map(x => `@${x.replace('@c.us', '')}`).join('\n')} del grupo...`)
+				for (let i = 0; i < mentionedJidList.length; i++) {
+					if (chief.includes(mentionedJidList[i])) return kill.reply(from, 'Si lo se....😖 esa persona arta, pero no lo puedo sacar por que el creo el grupo😰. Tendremos que segir awantandolo😬', id)
+					if (ownerNumber.includes(mentionedJidList[i])) return kill.reply(from, 'Desafortunadamente, es un mienbro VIP, que no puedo expulsar..', id)
+					if (groupAdmins.includes(mentionedJidList[i])) return kill.reply(from, mess.error.Ki, id)
+					await kill.removeParticipant(groupId, mentionedJidList[i])
 					}
+			} else if (isGroupMsg) {
+				await kill.reply(from, 'Lo sentimos, solo los administradores pueden usar este comando...', id)
+				} else {
+				await kill.reply(from, 'Este comando solo se puede usar en grupos!', id)
+					}
+            break
+			
+			
+	case '-':
+			if (mute) return console.log('Ignorando comando [Silence]')
+			if (isGroupMsg && isGroupAdmins) {
+				await kill.sendTextWithMentions(from, `Prohibición de miembro común:\n${mentionedJidList.map(x => `@${x.replace('@c.us', '')}`).join('\n')}`)
+				for (let i = 0; i < mentionedJidList.length; i++) {
+					if (groupAdmins.includes(mentionedJidList[i])) return kill.reply(from, mess.error.Ki, id)
+					await kill.removeParticipant(groupId, mentionedJidList[i])
+				}
+			} else if (isGroupMsg && isOwner) {
+				await kill.sendTextWithMentions(from, `Banindo membro comum:\n${mentionedJidList.map(x => `@${x.replace('@c.us', '')}`).join('\n')}`)
+				for (let i = 0; i < mentionedJidList.length; i++) {
+					if (groupAdmins.includes(mentionedJidList[i])) return kill.reply(from, mess.error.Ki, id)
+					await kill.removeParticipant(groupId, mentionedJidList[i])
 				}
 			} else if (isGroupMsg) {
 				await kill.reply(from, 'Lo sentimos, solo los administradores pueden usar este comando...', id)
@@ -2427,6 +2451,7 @@ module.exports = kconfig = async (kill, message) => {
 				await kill.reply(from, 'Este comando solo se puede usar en grupos!', id)
 			}
             break
+
 
 
         case 'leave':
