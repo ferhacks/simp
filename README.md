@@ -10,13 +10,12 @@ Un bot en portugués hecho para PC, originalmente para el grupo Legião Z en Wha
 ### Usar solo en el teléfono
 En el móvil, es muy difícil para ti usarlo, así que usa el sitio web de [Goorm](https://ide.goorm.io) para crear tu BOT por teléfono.
 
-### ”vip_gif”/Samu330
 
-### Traducido por Samu330
+### <img src="https://i.imgur.com/n1zo2wL.gif" width="10" height="10"/> Traducido por Samu330
 
 ### Funciones (no todas, +130)
 
-<p align="center">
+<p align="left">
 <img src="https://www.crackingpro.com/uploads/team_member.gif" width="200" height="90"/>
 </p>
 
@@ -67,6 +66,10 @@ En el móvil, es muy difícil para ti usarlo, así que usa el sitio web de [Goor
 | Foto de garotas, macacos, etc |✅|
 | Informações de Grupo/Perfil |✅|
 | Outros (Lista tem mais de 130) |✅|
+
+<p align="left">
+<img src="https://www.crackingpro.com/uploads/team_VIP.gif" width="200" height="90"/>
+</p>
 
 ### Instalación
 Necesita tener este repositorio, es simple, ejecute los siguientes comandos, en caso de errores, ejecútelo como sudo/administrador.
