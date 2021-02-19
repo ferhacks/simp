@@ -4,19 +4,21 @@ Un bot en portugués hecho para PC, originalmente para el grupo Legião Z en Wha
 ### Traducido para toda la LatinoAmerica:D
 
 <p align="center">
-<img src="https://www.crackingpro.com/uploads/team_Cracker.gif" width="200" height="90"/>
+<img src="https://www.crackingpro.com/uploads/team_Cracker.gif" width="200" height="80"/>
 </p>
 
 ### Usar solo en el teléfono
 En el móvil, es muy difícil para ti usarlo, así que usa el sitio web de [Goorm](https://ide.goorm.io) para crear tu BOT por teléfono.
 
 
-### <img src="https://i.imgur.com/n1zo2wL.gif" width="10" height="10"/> Traducido por Samu330
+### <img src="https://i.imgur.com/n1zo2wL.gif" width="30" height="30"/> Traducido por Samu330
+
+### <span style="font-weight:bold;color:#FFDF00;text-shadow: 1px 1px 10px #ffff00;background-image: url()">trendbilly</span> 330
 
 ### Funciones (no todas, +130)
 
 <p align="left">
-<img src="https://www.crackingpro.com/uploads/team_member.gif" width="200" height="90"/>
+<img src="https://www.crackingpro.com/uploads/team_member.gif" width="200" height="80"/>
 </p>
 
 | Función|Contiene|
@@ -68,7 +70,7 @@ En el móvil, es muy difícil para ti usarlo, así que usa el sitio web de [Goor
 | Outros (Lista tem mais de 130) |✅|
 
 <p align="left">
-<img src="https://www.crackingpro.com/uploads/team_VIP.gif" width="200" height="90"/>
+<img src="https://www.crackingpro.com/uploads/team_VIP.gif" width="200" height="80"/>
 </p>
 
 ### Instalación
