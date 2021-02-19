@@ -1454,19 +1454,26 @@ module.exports = kconfig = async (kill, message) => {
 			
 		case 'aki':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
-			const region = 'es';
-			if (args[0] == '-r') {
-				let akinm = args[1].match(/^[0-9]+$/)
-				if (!akinm) return kill.reply(from, '¡Responda solo con 0 o 1! \n0 = Sí \n1 = No', id)
-				const aki = new Aki(region);
-				await aki.start();
-				const myAnswer = `${args[1]}`
-				await aki.step(myAnswer);
-				await kill.reply(from, `Pregunta: ${aki.question}\n\nProgreso: ${aki.progress}\n\nResponda co /aki -r [0 o 1], 0 = si, 1 = no.`, id)
-			} else {
-				const aki = new Aki(region);
+			try {
+				if (args[0] == '-r') {
+					let akinm = args[1].match(/^[0-9]+$/)
+					if (!akinm) return kill.reply(from, 'Responda solo con 0 o 1!\n0 = Si\n1 = No', id)
+					const myAnswer = `${args[1]}`
+					await aki.step(myAnswer);
+					if (aki.progress >= 70 || aki.currentStep >= 78) {
+						await aki.win()
+						var akiwon = aki.answers[0]
+						await kill.sendFileFromUrl(from, `${akiwon.absolute_picture_path}`, '', `✪ Corazonada: ${akiwon.name}\n\n✪ De: ${akiwon.description}\n\n✪ Ranking: ${akiwon.ranking}\n\n✪ Nombre: ${akiwon.pseudo}\n\n✪ Número de intentos: ${aki.guessCount}`, id)
+					} else {
+						await kill.reply(from, `Pregunta: ${aki.question}\n\nProgresso: ${aki.progress}\n\nResponda con ${prefix}aki -r [0 o 1], 0 = si, 1 = no.`, id)
+					}
+				} else {
+					await kill.reply(from, `Pregunta: ${aki.question}\n\nResponda con ${prefix}aki -r [0 o 1], 0 = si, 1 = no.`, id)
+				}
+			} catch (error) {
+				await kill.reply(from, 'La sesión del juego ha expirado, intentaré actualizar, si no funciona, reinicie el BOT.', id)
+				new Aki(region)
 				await aki.start()
-				await kill.reply(from, `Pregunta: ${aki.question}\n\nResponda con /aki -r [0 o 1], 0 = si, 1 = no.`, id)
 			}
 			break
 			
