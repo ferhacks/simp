@@ -13,9 +13,6 @@ En el móvil, es muy difícil para ti usarlo, así que usa el sitio web de [Goor
 
 ### <img src="https://i.imgur.com/n1zo2wL.gif" width="30" height="30"/> Traducido por Samu330
 
-### <span class="ipsBadge" style="background:red;">Porn</span>
-
-### <span style="font-weight:bold;color:#FFDF00;text-shadow: 1px 1px 10px #ffff00;background-image: url()">Samu330</span>
 
 ### Funciones (no todas, +130)
 
