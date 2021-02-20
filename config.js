@@ -64,7 +64,7 @@ module.exports = kconfig = async (kill, message) => {
 		pushname = pushname || verifiedName || formattedName
         const botNumber = await kill.getHostNumber()
         const blockNumber = await kill.getBlockedIds()
-		const ownerNumber = ['529984907794@s.whatsapp.net']
+		const ownerNumber = config.owner
         const usuario = sender.id
 		const isOwner = usuario.includes(ownerNumber)
         const groupId = isGroupMsg ? chat.groupMetadata.id : ''
@@ -2409,7 +2409,7 @@ module.exports = kconfig = async (kill, message) => {
         case 'kick':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
 			const chief = chat.groupMetadata.owner
-			if (isGroupMsg && isGroupAdmins) {
+			if (isGroupMsg && isGroupAdmins || isGroupMsg && isOwner) {
 				if (!isBotGroupAdmins) return kill.reply(from, mess.error.Ba, id)
 				if (quotedMsg) {
 					const negquo = quotedMsgObj.sender.id
@@ -2417,11 +2417,11 @@ module.exports = kconfig = async (kill, message) => {
 					await kill.sendTextWithMentions(from, `Expulsando participante @${negquo} del grupo...`)
 					await kill.removeParticipant(groupId, negquo)
 				} else {
-					if (mentionedJidList.length == 0) return kill.reply(from, 'Você digitou o comando de forma muito errada, arrume e envie certo.', id)
+					if (mentionedJidList.length == 0) return kill.reply(from, 'Escribiste el comando muy mal, arréglalo y envíalo bien.', id)
 					await kill.sendTextWithMentions(from, `Expulsando participante ${mentionedJidList.map(x => `@${x.replace('@c.us', '')}`).join('\n')} del grupo...`)
 					for (let i = 0; i < mentionedJidList.length; i++) {
 						if (chief.includes(mentionedJidList[i])) return kill.reply(from, 'Si lo se, este cuate arta😖 pero es el creador del grupo, no puedo sacarlo😖. Tendremos que seguir awantandolo😰.', id)
-						if (ownerNumber.includes(mentionedJidList[i])) return kill.reply(from, 'Desafortunadamente, es un participante VIP, no lo puedo expulsar.', id)
+						if (ownerNumber.includes(mentionedJidList[i])) return kill.reply(from, 'Desafortunadamente, es un participante VIP, no puedo expulsar.', id)
 						if (groupAdmins.includes(mentionedJidList[i])) return kill.reply(from, mess.error.Kl, id)
 						await kill.removeParticipant(groupId, mentionedJidList[i])
 					}
