@@ -219,7 +219,7 @@ module.exports = kconfig = async (kill, message) => {
 				.then(async (resizedImageBuffer) => {
 					let resizedImageData = resizedImageBuffer.toString('base64');
 					let resizedBase64 = `data:${mimetype};base64,${resizedImageData}`;
-					await kill.sendImageAsSticker(from, resizedBase64)
+					await kill.sendImageAsSticker(from, resizedBase64, { author: '👑Samu330👑', pack: 'By IrísBot', keepScale: 'true'})
 				})
             } else if (isQuotedImage) {
                 const mediaData = await decryptMedia(quotedMsg, uaOverride)
@@ -231,7 +231,7 @@ module.exports = kconfig = async (kill, message) => {
 				.then(async (resizedImageBuffer) => {
 					let resizedImageData = resizedImageBuffer.toString('base64');
 					let resizedBase64 = `data:${quotedMsg.mimetype};base64,${resizedImageData}`;
-					await kill.sendImageAsSticker(from, resizedBase64)
+					await kill.sendImageAsSticker(from, resizedBase64, { author: '👑Samu330👑', pack: 'By IrísBot', keepScale: 'true'})
 				})
             } else if (args.length == 1) {
                 const url = args[1]
@@ -327,7 +327,7 @@ module.exports = kconfig = async (kill, message) => {
                     const encryptMedia = isQuotedGif || isQuotedVideo ? quotedMsg : message
                     const mediaData = await decryptMedia(encryptMedia, uaOverride)
                     const gifSticker = `data:${mimetype};base64,${mediaData.toString('base64')}`
-                    await kill.sendMp4AsSticker(from, gifSticker, { fps: 30, startTime: '00:00:00.0', endTime : '00:00:05.0', loop: 0 })
+                    await kill.sendMp4AsSticker(from, gifSticker, { fps: 30, startTime: '00:00:00.0', endTime : '00:00:05.0', loop: 0 },{ author: '👑Samu330👑', pack: 'By IrísBot', keepScale: 'true'})
                 } catch (err) {
                     console.error(err)
                     await kill.reply(from, 'Lo siento, tengo algunos errores al hacer tu stiker.', id)
