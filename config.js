@@ -36,6 +36,10 @@ const BrainlySearch = require('./lib/brainly')
 const { coins } = require('./lib/coins')
 moment.tz.setDefault('Mexico/Cancun').locale('es_QR')
 const config = require('./lib/config/config.json')
+const region = config.akilang
+var aki = new Aki(region)
+aki.start()
+
 
 // JSON'S 
 const nsfw_ = JSON.parse(fs.readFileSync('./lib/config/NSFW.json'))
@@ -60,7 +64,7 @@ module.exports = kconfig = async (kill, message) => {
 		pushname = pushname || verifiedName || formattedName
         const botNumber = await kill.getHostNumber()
         const blockNumber = await kill.getBlockedIds()
-		const ownerNumber = config.owner
+		const ownerNumber = ['529984907794@s.whatsapp.net']
         const usuario = sender.id
 		const isOwner = usuario.includes(ownerNumber)
         const groupId = isGroupMsg ? chat.groupMetadata.id : ''
@@ -1604,7 +1608,8 @@ module.exports = kconfig = async (kill, message) => {
         case 'welcome':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
 			if (!isGroupMsg) return kill.reply(from, mess.error.Gp, id)
-            if (args.length !== 1) return kill.reply(from, 'Olvidaste establecer entre activado [on], o desactivado [off].', id)
+			if (!isOwner) return kill.reply(from, mess.error.Kl, id)
+            if (args.length !== 1) return kill.reply(from, 'Olvidaste establecer entre [on], o [off].', id)
 			if (args[0] == 'on') {
                 welkom.push(chat.id)
                 fs.writeFileSync('./lib/config/welcome.json', JSON.stringify(welkom))
@@ -1615,7 +1620,7 @@ module.exports = kconfig = async (kill, message) => {
                 fs.writeFileSync('./lib/config/welcome.json', JSON.stringify(welkom))
                 kill.reply(from, '¡Comprendido! Desactivé las opciones de Bienvenida y Adiós.', id)
             } else {
-                kill.reply(from, 'Olvidaste establecer entre activado [on], o desactivado [off].', id)
+                kill.reply(from, 'Olvidaste establecer entre [on], o [off].', id)
             }
             break
 			
