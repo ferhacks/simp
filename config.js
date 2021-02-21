@@ -36,6 +36,8 @@ const BrainlySearch = require('./lib/brainly')
 const { coins } = require('./lib/coins')
 moment.tz.setDefault('Mexico/Cancun').locale('es_QR')
 const config = require('./lib/config/config.json')
+
+// Akinator Start
 const region = config.akilang
 var aki = new Aki(region)
 aki.start()
@@ -52,19 +54,22 @@ const slce = JSON.parse(fs.readFileSync('./lib/config/silence.json'))
 const atstk = JSON.parse(fs.readFileSync('./lib/config/sticker.json'))
 
 module.exports = kconfig = async (kill, message) => {
+	
+	// Esto hace posible recibir alertas en WhatsApp.
+	const { type, id, from, t, sender, author, isGroupMsg, chat, chatId, caption, isMedia, mimetype, quotedMsg, quotedMsgObj, mentionedJidList } = message
+	let { body } = message
+	const ownerNumber = config.owner
+	
     try {
         // Prefix
         const prefix = config.prefix
 
 		// PARAMETROS
-		const { type, id, from, t, sender, author, isGroupMsg, chat, chatId, caption, isMedia, mimetype, quotedMsg, quotedMsgObj, mentionedJidList } = message
-		let { body } = message
 		const { name, formattedTitle } = chat
 		let { pushname, verifiedName, formattedName } = sender
 		pushname = pushname || verifiedName || formattedName
         const botNumber = await kill.getHostNumber()
         const blockNumber = await kill.getBlockedIds()
-		const ownerNumber = config.owner
         const usuario = sender.id
 		const isOwner = usuario.includes(ownerNumber)
         const groupId = isGroupMsg ? chat.groupMetadata.id : ''
@@ -95,7 +100,6 @@ module.exports = kconfig = async (kill, message) => {
         const isVideo = type === 'video'
         global.pollfile = 'poll_Config_'+chat.id+'.json'
         global.voterslistfile = 'poll_voters_Config_'+chat.id+'.json'
-		global.client = kill
 	
 		
 		// OUTRAS
@@ -112,7 +116,7 @@ module.exports = kconfig = async (kill, message) => {
 		
 		
         const mess = {
-            wait: 'Ok amor, espera un minuto...',
+            wait: '✅ ESPERA, ESTE PROCESO PUEDE TARDAR...',
             error: {
                 St: 'Lo usaste mal jaja!\nPara usar esto, envíe o etiquete una foto con este mensaje, si es un gif, use el comando */gif*.',
                 Ki: 'Para eliminar administradores, primero debe eliminar su ADM.',
@@ -219,7 +223,7 @@ module.exports = kconfig = async (kill, message) => {
 				.then(async (resizedImageBuffer) => {
 					let resizedImageData = resizedImageBuffer.toString('base64');
 					let resizedBase64 = `data:${mimetype};base64,${resizedImageData}`;
-					await kill.sendImageAsSticker(from, resizedBase64, { author: '👑Samu330👑', pack: 'By IrísBot', keepScale: 'true'})
+					await kill.sendImageAsSticker(from, resizedBase64)
 				})
             } else if (isQuotedImage) {
                 const mediaData = await decryptMedia(quotedMsg, uaOverride)
@@ -231,7 +235,7 @@ module.exports = kconfig = async (kill, message) => {
 				.then(async (resizedImageBuffer) => {
 					let resizedImageData = resizedImageBuffer.toString('base64');
 					let resizedBase64 = `data:${quotedMsg.mimetype};base64,${resizedImageData}`;
-					await kill.sendImageAsSticker(from, resizedBase64, { author: '👑Samu330👑', pack: 'By IrísBot', keepScale: 'true'})
+					await kill.sendImageAsSticker(from, resizedBase64)
 				})
             } else if (args.length == 1) {
                 const url = args[1]
@@ -327,7 +331,8 @@ module.exports = kconfig = async (kill, message) => {
                     const encryptMedia = isQuotedGif || isQuotedVideo ? quotedMsg : message
                     const mediaData = await decryptMedia(encryptMedia, uaOverride)
                     const gifSticker = `data:${mimetype};base64,${mediaData.toString('base64')}`
-                    await kill.sendMp4AsSticker(from, gifSticker, { fps: 30, startTime: '00:00:00.0', endTime : '00:00:05.0', loop: 0 },{ author: '👑Samu330👑', pack: 'By IrísBot', keepScale: 'true'})
+                    await kill.sendMp4AsSticker(from, gifSticker, { fps: 30, startTime: '00:00:00.0', endTime : '00:00:05.0', loop: 0 })
+		    await kill.reply(from, 'YA ESTA LISTO TU STICKER:D', id)
                 } catch (err) {
                     console.error(err)
                     await kill.reply(from, 'Lo siento, tengo algunos errores al hacer tu stiker.', id)
@@ -2139,22 +2144,22 @@ module.exports = kconfig = async (kill, message) => {
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
 			if (isGroupMsg && isGroupAdmins) {
 				const groupMem = await kill.getGroupMembers(groupId)
-				let hehe = `╔✯ Hola! Todos marcados! ✯═\n║〘 Assunto: ${body.slice(10)} 〙✯═\n`
+				let hehe = `🛑╔══✪〘 HOLA TODOS MARCADOS 〙✪══\n⚠╠✪〘 Asunto: ${body.slice(10)} 〙✪═\n`
 				for (let i = 0; i < groupMem.length; i++) {
-					hehe += '╠➥ '
+					hehe += '🔥╠➥ '
 					hehe += ` @${groupMem[i].id.replace(/@c.us/g, '')}\n`
 				}
-				hehe += '\n╚✯〘 	  👑    〙✯═'
+				hehe += '\n✔╚═✪〘 Gracias, te amo ❤ 〙✪═'
 				await sleep(2000)
 				await kill.sendTextWithMentions(from, hehe, id)
 			} else if (isGroupMsg && isOwner) {
 				const groupMem = await kill.getGroupMembers(groupId)
-				let hehe = `╔✯ Hola! Todos marcados! ✯═\n║〘 Assunto: ${body.slice(10)} 〙✯═\n`
+				let hehe = `🛑╔══✪〘 HOLA TODOS MARCADOS 〙✪══\n⚠╠✪〘 Assunto: ${body.slice(10)} 〙✪═\n`
 				for (let i = 0; i < groupMem.length; i++) {
-					hehe += '╠➥ '
+					hehe += '🔥╠➥ '
 					hehe += ` @${groupMem[i].id.replace(/@c.us/g, '')}\n`
 				}
-				hehe += '\n╚✯〘 	  👑    〙✯═'
+				hehe += '✔╚═✪〘 Gracias, te amo ❤ 〙✪═'
 				await sleep(2000)
 				await kill.sendTextWithMentions(from, hehe, id)
 			} else if (isGroupMsg) {
@@ -3783,9 +3788,33 @@ module.exports = kconfig = async (kill, message) => {
             }
 			await kill.reply(from, 'Estos son actualmente mis grupos:\n\n' + idmsgp, id)
 			break
+			
+			
+		case 'help':
+			if (args.length == 0) return kill.reply(from, 'Define tu problema para enviarlo al grupo responsable de Iris.', id)
+			const hpgp = groupId.replace('@g.us', '')
+			const hppv = sender.id.replace('@c.us', '')
+			if (isGroupMsg) {
+				await kill.sendText(ownerNumber, `⚠️ _Solicitud de soporte realizada por_ *${name}*, _a pedido de_ *${pushname}* _del numero_ wa.me/${sender.id.replace('@c.us', '')}.\n\n_Motivo:_ ${body.slice(6)}`)
+				await kill.sendText(ownerNumber, `${prefix}enviar -gp ${hpgp} | Responda con una solucion`)
+			} else {
+				await kill.sendText(ownerNumber, `⚠️ _Solicitud de soporte realizada por_ *${pushname}* _del número_ wa.me/${sender.id.replace('@c.us', '')}.\n\n_Motivo:_ ${body.slice(6)}`)
+				await kill.sendText(ownerNumber, `${prefix}enviar -pv ${hppv} | Responda con una solucion`)
+			}
+			await kill.reply(from, 'Gracias por informarnos de uno de nuestros errores, estad atentos que cuando lo veamos responderemos!\n\nSi no lo vemos ps te jodiste:D', id)
+			break
+			
+	default:
+            if (isCmd) {
+                await kill.reply(from, `⚠️ El comando ${prefix}${command} no existe, revise nuestra lista en ${prefix}menu para continuar.`, id)
+            }
+            break
+			
 
         }
-    } catch (err) {
+   } catch (err) {
         console.log(color('[ERRO]', 'red'), err)
+			//.xd
+		kill.reply(from, `⚠️ _Vaya, por alguna razón recibí errores con este comando, por favor evite usarlo nuevamente y si es posible contacte a los responsables con el comando ${prefix}help._`, id)
     }
 }
