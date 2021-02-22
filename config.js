@@ -14,6 +14,7 @@ const get = require('got')
 const sinesp = require('sinesp-api')
 const { Aki } = require('aki-api')
 const request = require('request')
+const canvas = require('canvacord')
 const { spawn, exec, execFile } = require('child_process')
 const nhentai = require('nhentai-js')
 const { API } = require('nhentai-api')
@@ -48,6 +49,8 @@ const nsfw_ = JSON.parse(fs.readFileSync('./lib/config/NSFW.json'))
 const welkom = JSON.parse(fs.readFileSync('./lib/config/welcome.json'))
 const exsv = JSON.parse(fs.readFileSync('./lib/config/exclusive.json'))
 const bklist = JSON.parse(fs.readFileSync('./lib/config/blacklist.json'))
+const xp = JSON.parse(fs.readFileSync('./lib/config/xp.json'))
+const nivel = JSON.parse(fs.readFileSync('./lib/config/level.json'))
 const atbk = JSON.parse(fs.readFileSync('./lib/config/anti.json'))
 const faki = JSON.parse(fs.readFileSync('./lib/config/fake.json'))
 const slce = JSON.parse(fs.readFileSync('./lib/config/silence.json'))
@@ -59,13 +62,14 @@ module.exports = kconfig = async (kill, message) => {
 	const { type, id, from, t, sender, author, isGroupMsg, chat, chatId, caption, isMedia, mimetype, quotedMsg, quotedMsgObj, mentionedJidList } = message
 	let { body } = message
 	const ownerNumber = config.owner
-	
-    try {
+
         // Prefix
         const prefix = config.prefix
+	
+	try {
 
 		// PARAMETROS
-		const { name, formattedTitle } = chat
+const { name, formattedTitle } = chat
 		let { pushname, verifiedName, formattedName } = sender
 		pushname = pushname || verifiedName || formattedName
         const botNumber = await kill.getHostNumber()
@@ -90,6 +94,7 @@ module.exports = kconfig = async (kill, message) => {
         const uaOverride = process.env.UserAgent
         const isBlocked = blockNumber.includes(sender.id)
         const isLeg = exsv.includes(chatId)
+        const isxp = xp.includes(chatId)
 		const mute = slce.includes(chatId)
 		const pvmte = slce.includes(sender.id)
         const isQuotedImage = quotedMsg && quotedMsg.type === 'image'
@@ -103,7 +108,7 @@ module.exports = kconfig = async (kill, message) => {
 	
 		
 		// OUTRAS
-        const double = Math.floor(Math.random() * 2) + 1
+const double = Math.floor(Math.random() * 2) + 1
         const four = Math.floor(Math.random() * 4) + 1
         const triple = Math.floor(Math.random() * 3) + 1
         const cinco = Math.floor(Math.random() * 5) + 1
@@ -113,6 +118,7 @@ module.exports = kconfig = async (kill, message) => {
 		const lvpc = Math.floor(Math.random() * 100) + 1
 		const errorurl = 'https://steamuserimages-a.akamaihd.net/ugc/954087817129084207/5B7E46EE484181A676C02DFCAD48ECB1C74BC423/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false'
 		const errorurl2 = 'https://steamuserimages-a.akamaihd.net/ugc/954087817129084207/5B7E46EE484181A676C02DFCAD48ECB1C74BC423/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false'
+		const errorImg = 'https://i.ibb.co/jRCpLfn/user.png'
 		
 		
         const mess = {
@@ -131,6 +137,75 @@ module.exports = kconfig = async (kill, message) => {
             }
         }
 	
+	
+	// Sobe patente por nivel, mude pro que quiser dentro das aspas
+        const check = rank.getLevel(sender.id, nivel)
+		var patente = 'Bronce I'
+		if (check >= 5) {
+			patente = 'Bronce II'
+		} else if (check >= 10) {
+			patente = 'Bronce III'
+		} else if (check >= 15) {
+			patente = 'Bronce IV'
+		} else if (check >= 20) {
+			patente = 'Bronce V'
+		} else if (check >= 25) {
+			patente = 'Plata I'
+		} else if (check >= 30) {
+			patente = 'Plata II'
+		} else if (check >= 35) {
+			patente = 'Plata III'
+		} else if (check >= 40) {
+			patente = 'Plata IV'
+		} else if (check >= 45) {
+			patente = 'Plata V'
+		} else if (check >= 50) {
+			patente = 'Oro I'
+		} else if (check >= 55) {
+			patente = 'Oro II'
+		} else if (check >= 60) {
+			patente = 'Oro III'
+		} else if (check >= 65) {
+			patente = 'Oro IV'
+		} else if (check >= 70) {
+			patente = 'Oro V'
+		} else if (check >= 75) {
+			patente = 'Diamante I'
+		} else if (check >= 80) {
+			patente = 'Diamante II'
+		} else if (check >= 85) {
+			patente = 'Diamante III'
+		} else if (check >= 90) {
+			patente = 'Diamante IV'
+		} else if (check >= 95) {
+			patente = 'Diamante V'
+		} else if (check >= 100) {
+			patente = 'Maestro'
+		} else if (check >= 500) {
+			patente = 'Semi-Dios'
+		} else if (check >= 1000) {
+			patente = 'Dios'
+		}
+		
+		
+		        // Sistema do XP - Agradecimentos Bocchi - Slavyan
+        if (isGroupMsg && isxp && !rank.isWin(usuario) && !isBlocked) {
+            try {
+                rank.wait(usuario)
+                const levelAtual = rank.getLevel(usuario, nivel)
+                const xpAtual = Math.floor(Math.random() * (15 - 25 + 1) + 15)
+                const neededXp = 5 * Math.pow(levelAtual, 2) + 50 * levelAtual + 100
+                rank.addXp(sender.id, xpAtual, nivel)
+                if (neededXp <= rank.getXp(usuario, nivel)) {
+                    rank.addLevel(usuario, 1, nivel)
+                    const userLevel = rank.getLevel(usuario, nivel)
+                    const takeXp = 5 * Math.pow(userLevel, 2) + 50 * userLevel + 100
+                    await kill.reply(from, `*「 NUEVO NIVEL 」*\n\n➫ *Nombre*: ${pushname}\n➫ *XP*: ${rank.getXp(usuario, nivel)} / ${takeXp}\n➫ *Level*: ${levelAtual} -> ${rank.getLevel(usuario, nivel)} 🆙 \n➫ *Patente*: *${patente}*\n\n*Felicitaciones, se más activo para subir tu rango y XP!* 🎉`, id)
+                }
+            } catch (err) {
+                console.error(err)
+            }
+        }
 
         // ANTI LINK DE GRUPO
         if (isGroupMsg && !isGroupAdmins && isBotGroupAdmins && isLeg && !isOwner) {
@@ -213,7 +288,7 @@ module.exports = kconfig = async (kill, message) => {
         case 'stiker':
 	case 's':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
-            if (isMedia && isImage) {
+		if (isMedia && isImage) {
                 const mediaData = await decryptMedia(message, uaOverride)
 				sharp(mediaData)
 				.resize(512, 512, {
@@ -224,6 +299,7 @@ module.exports = kconfig = async (kill, message) => {
 					let resizedImageData = resizedImageBuffer.toString('base64');
 					let resizedBase64 = `data:${mimetype};base64,${resizedImageData}`;
 					await kill.sendImageAsSticker(from, resizedBase64)
+					await kill.reply(from, '*SU STICKER SE CREO CORRECTAMENTE😉', id)
 				})
             } else if (isQuotedImage) {
                 const mediaData = await decryptMedia(quotedMsg, uaOverride)
@@ -236,17 +312,19 @@ module.exports = kconfig = async (kill, message) => {
 					let resizedImageData = resizedImageBuffer.toString('base64');
 					let resizedBase64 = `data:${quotedMsg.mimetype};base64,${resizedImageData}`;
 					await kill.sendImageAsSticker(from, resizedBase64)
+					await kill.reply(from, '*SU STICKER SE CREO CORRECTAMENTE😉', id)
+
 				})
             } else if (args.length == 1) {
-                const url = args[1]
-                if (url.match(isUrl)) {
+                const url = args[0]
+                if (isUrl(url)) {
                     await kill.sendStickerfromUrl(from, url, { method: 'get' })
                         .catch(err => console.log('Erro: ', err))
                 } else {
-                    kill.reply(from, mess.error.Iv, id)
+					kill.reply(from, mess.error.Iv, id)
                 }
             } else {
-                    kill.reply(from, mess.error.St, id)
+                kill.reply(from, mess.error.St, id)
             }
             break
 			
@@ -332,7 +410,7 @@ module.exports = kconfig = async (kill, message) => {
                     const mediaData = await decryptMedia(encryptMedia, uaOverride)
                     const gifSticker = `data:${mimetype};base64,${mediaData.toString('base64')}`
                     await kill.sendMp4AsSticker(from, gifSticker, { fps: 30, startTime: '00:00:00.0', endTime : '00:00:05.0', loop: 0 })
-		    await kill.reply(from, 'YA ESTA LISTO TU STICKER:D', id)
+		    await kill.reply(from, '*SU STICKER SE CREO CORRECTAMENTE😉', id)
                 } catch (err) {
                     console.error(err)
                     await kill.reply(from, 'Lo siento, tengo algunos errores al hacer tu stiker.', id)
@@ -1127,268 +1205,17 @@ module.exports = kconfig = async (kill, message) => {
             break
 
 
-        case 'tts': // Esse é enormeeeee, fazer o que, sou baiano pra jogar noutro js
-            if (args.length == 1) return kill.reply(from, 'Comprensible, pero no utilizable, olvidó definir el lenguaje y la frase.')
-            const ttsId = require('node-gtts')('id')
-            const ttsEn = require('node-gtts')('en')
-			const ttsJp = require('node-gtts')('ja')
-            const ttsAr = require('node-gtts')('ar')
-            const ttsAf = require('node-gtts')('af')
-            const ttsSq = require('node-gtts')('sq')
-			const ttsHy = require('node-gtts')('hy')
-            const ttsCa = require('node-gtts')('ca')
-			const ttsZh = require('node-gtts')('zh')
-			const ttsCn = require('node-gtts')('zh-cn')
-			const ttsTw = require('node-gtts')('zh-tw')
-			const ttsYu = require('node-gtts')('zh-yue')
-			const ttsHr = require('node-gtts')('hr')
-			const ttsCs = require('node-gtts')('cs')
-            const ttsDa = require('node-gtts')('da')
-            const ttsNl = require('node-gtts')('nl')
-			const ttsAu = require('node-gtts')('en-au')
-            const ttsUk = require('node-gtts')('en-uk')
-			const ttsUs = require('node-gtts')('en-us')
-			const ttsEo = require('node-gtts')('eo')
-			const ttsFi = require('node-gtts')('fi')
-			const ttsFr = require('node-gtts')('fr')
-			const ttsEl = require('node-gtts')('el')
-			const ttsHt = require('node-gtts')('ht')
-            const ttsHi = require('node-gtts')('hi')
-            const ttsHu = require('node-gtts')('hu')
-			const ttsIs = require('node-gtts')('is')
-            const ttsIt = require('node-gtts')('it')
-            const ttsKo = require('node-gtts')('ko')
-            const ttsLa = require('node-gtts')('la')
-			const ttsLv = require('node-gtts')('lv')
-            const ttsMk = require('node-gtts')('mk')
-			const ttsNo = require('node-gtts')('no')
-			const ttsPl = require('node-gtts')('pl')
-			const ttsRo = require('node-gtts')('ro')
-			const ttsSr = require('node-gtts')('sr')
-			const ttsSk = require('node-gtts')('sk')
-			const ttsEs = require('node-gtts')('es')
-            const ttsSp = require('node-gtts')('es-es')
-            const ttsSu = require('node-gtts')('es-us')
-			const ttsSw = require('node-gtts')('sw')
-            const ttsSv = require('node-gtts')('sv')
-			const ttsTa = require('node-gtts')('ta')
-			const ttsTh = require('node-gtts')('th')
-			const ttsTr = require('node-gtts')('tr')
-			const ttsVi = require('node-gtts')('vi')
-			const ttsCy = require('node-gtts')('cy')
-            const ttsDe = require('node-gtts')('de')
-            const ttsBr = require('node-gtts')('pt-br')
-			const ttsPt = require('node-gtts')('pt')
-            const ttsRu = require('node-gtts')('ru')
+case 'tts':
+            if (args.length == 1) return kill.reply(from, 'Comprensible, pero no utilizable, olvidó definir el idioma y la frase.')
             const dataText = body.slice(8)
-            if (dataText === '') return kill.reply(from, '¡Ahora tenemos un baka! Olvidaste poner la frase para hablar.', id)
-            if (dataText.length > 500) return kill.reply(from, 'Lo siento, pero el límite es de 500 letras....', id)
             var dataBhs = body.slice(5, 7)
-			if (dataBhs == 'id') {
-                ttsId.save('./lib/media/tts/resId.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resId.mp3', id)
-                })
-            } else if (dataBhs == 'en') {
-                ttsEn.save('./lib/media/tts/resEn.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resEn.mp3', id)
-                })
-            } else if (dataBhs == 'jp') {
-                ttsJp.save('./lib/media/tts/resJp.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resJp.mp3', id)
-                })
-            } else if (dataBhs == 'de') {
-                ttsDe.save('./lib/media/tts/resDe.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resDe.mp3', id)
-                })
-            } else if (dataBhs == 'br') {
-                ttsBr.save('./lib/media/tts/resBr.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resBr.mp3', id)
-                })
-            } else if (dataBhs == 'ru') {
-                ttsRu.save('./lib/media/tts/resRu.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resRu.mp3', id)
-                })
-			} else if (dataBhs == 'ar') {
-                ttsAr.save('./lib/media/tts/resAr.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resAr.mp3', id)
-                })
-            } else if (dataBhs == 'pt') {
-                ttsPt.save('./lib/media/tts/resPt.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resPt.mp3', id)
-                })
-            } else if (dataBhs == 'af') {
-                ttsAf.save('./lib/media/tts/resAf.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resAf.mp3', id)
-                })
-            } else if (dataBhs == 'sq') {
-                ttsSq.save('./lib/media/tts/resSq.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resSq.mp3', id)
-                })
-            } else if (dataBhs == 'hy') {
-                ttsHy.save('./lib/media/tts/resHy.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resHy.mp3', id)
-                })
-            } else if (dataBhs == 'ca') {
-                ttsCa.save('./lib/media/tts/resCa.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resCa.mp3', id)
-                })
-            } else if (dataBhs == 'zh') {
-                ttsZh.save('./lib/media/tts/resZh.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resZh.mp3', id)
-                })		
-            } else if (dataBhs == 'cn') {
-                ttsCn.save('./lib/media/tts/resCn.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resCn.mp3', id)
-                })
-            } else if (dataBhs == 'tw') {
-                ttsTw.save('./lib/media/tts/resTw.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resTw.mp3', id)
-                })
-            } else if (dataBhs == 'yu') {
-                ttsYu.save('./lib/media/tts/resYue.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resYue.mp3', id)
-                })
-			} else if (dataBhs == 'hr') {
-                ttsHr.save('./lib/media/tts/resHr.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resHr.mp3', id)
-                })
-            } else if (dataBhs == 'cs') {
-                ttsCs.save('./lib/media/tts/resCs.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resCs.mp3', id)
-                })
-            } else if (dataBhs == 'da') {
-                ttsDa.save('./lib/media/tts/resDa.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resDa.mp3', id)
-                })
-            } else if (dataBhs == 'nl') {
-                ttsNl.save('./lib/media/tts/resNl.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resNl.mp3', id)
-                })
-            } else if (dataBhs == 'au') {
-                ttsAu.save('./lib/media/tts/resAu.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resAu.mp3', id)
-                })
-            } else if (dataBhs == 'uk') {
-                ttsUk.save('./lib/media/tts/resUk.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resUk.mp3', id)
-                })
-            } else if (dataBhs == 'us') {
-                ttsUs.save('./lib/media/tts/resUs.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resUs.mp3', id)
-                })
-            } else if (dataBhs == 'eo') {
-                ttsEo.save('./lib/media/tts/resEo.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resEo.mp3', id)
-                })
-            } else if (dataBhs == 'fi') {
-                ttsFi.save('./lib/media/tts/resFi.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resFi.mp3', id)
-                })
-            } else if (dataBhs == 'fr') {
-                ttsFr.save('./lib/media/tts/resFr.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resFr.mp3', id)
-                })
-            } else if (dataBhs == 'el') {
-                ttsEl.save('./lib/media/tts/resEl.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resEl.mp3', id)
-                })
-            } else if (dataBhs == 'ht') {
-                ttsHt.save('./lib/media/tts/resJp.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resHt.mp3', id)
-                })
-            } else if (dataBhs == 'hi') {
-                ttsHi.save('./lib/media/tts/resHi.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resHi.mp3', id)
-                })
-            } else if (dataBhs == 'hu') {
-                ttsHu.save('./lib/media/tts/resHu.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resHu.mp3', id)
-                })
-            } else if (dataBhs == 'is') {
-                ttsIs.save('./lib/media/tts/resIs.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resIs.mp3', id)
-                })
-			} else if (dataBhs == 'it') {
-                ttsIt.save('./lib/media/tts/resIt.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resIt.mp3', id)
-                })
-            } else if (dataBhs == 'ko') {
-                ttsKo.save('./lib/media/tts/resKo.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resKo.mp3', id)
-                })
-            } else if (dataBhs == 'la') {
-                ttsLa.save('./lib/media/tts/resLa.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resLa.mp3', id)
-                })
-            } else if (dataBhs == 'lv') {
-                ttsLv.save('./lib/media/tts/resLv.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resLv.mp3', id)
-                })
-            } else if (dataBhs == 'mk') {
-                ttsMk.save('./lib/media/tts/resMk.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resMk.mp3', id)
-                })
-            } else if (dataBhs == 'no') {
-                ttsNo.save('./lib/media/tts/resNo.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resNo.mp3', id)
-                })
-            } else if (dataBhs == 'pl') {
-                ttsPl.save('./lib/media/tts/resPl.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resPl.mp3', id)
-                })		
-            } else if (dataBhs == 'ro') {
-                ttsRo.save('./lib/media/tts/resRo.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resRo.mp3', id)
-                })
-            } else if (dataBhs == 'sr') {
-                ttsSr.save('./lib/media/tts/resSr.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resSr.mp3', id)
-                })
-            } else if (dataBhs == 'sk') {
-                ttsSk.save('./lib/media/tts/resSk.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resSk.mp3', id)
-                })
-			} else if (dataBhs == 'es') {
-                ttsEs.save('./lib/media/tts/resEs.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resEs.mp3', id)
-                })
-            } else if (dataBhs == 'sp') {
-                ttsSp.save('./lib/media/tts/resSp.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resSp.mp3', id)
-                })
-            } else if (dataBhs == 'su') {
-                ttsSu.save('./lib/media/tts/resSu.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resSu.mp3', id)
-                })
-            } else if (dataBhs == 'sw') {
-                ttsSw.save('./lib/media/tts/resSw.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resSk.mp3', id)
-                })
-            } else if (dataBhs == 'sv') {
-                ttsSv.save('./lib/media/tts/resSv.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resSv.mp3', id)
-                })
-            } else if (dataBhs == 'ta') {
-                ttsTa.save('./lib/media/tts/resTa.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resTa.mp3', id)
-                })
-            } else if (dataBhs == 'tr') {
-                ttsTr.save('./lib/media/tts/resTr.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resTr.mp3', id)
-                })
-            } else if (dataBhs == 'vi') {
-                ttsVi.save('./lib/media/tts/resVi.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resVi.mp3', id)
-                })
-            } else if (dataBhs == 'cy') {
-                ttsCy.save('./lib/media/tts/resCy.mp3', dataText, function () {
-                    kill.sendPtt(from, './lib/media/tts/resCy.mp3', id)
-                })
-            } else {
-                kill.reply(from, `Hmm, '${body.slice(5, 7)}' no es un idioma compatible, para idiomas compatibles escriba */idiomas*.`, id)
-            }
+			if (dataText.length == '' || dataText.length > 500) return kill.reply(from, 'Debes ingresar el idioma y el texto y recuerda que el texto no puede exceder las 500 letras.', id)
+			const sppts = await ngtts(dataBhs, dataText)
+			console.log(sppts)
+			if (sppts == 'Error') return kill.reply(from, `Hmm, '${dataBhs}' no es un idioma compatible, para el tipo de idiomas compatibles ${prefix}idiomas.`, id)
+			await sleep(3000)
+			await kill.sendPtt(from, `./lib/media/tts/res${sppts}.mp3`, id)
             break
-
 
         case 'idiomas':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
@@ -1575,10 +1402,8 @@ module.exports = kconfig = async (kill, message) => {
 
 
         case 'nsfw':
-			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
-       	    const isGroupAdmins = sender.id === chat.groupMetadata.owner
             if (args.length !== 1) return kill.reply(from, 'Defina enable o disable', id)
-			if (isGroupMsg) {
+			if (isGroupMsg && isGroupAdmins || isGroupMsg && isOwner) {
 				if (args[0].toLowerCase() == 'enable') {
 					nsfw_.push(chat.id)
 					fs.writeFileSync('./lib/config/NSFW.json', JSON.stringify(nsfw_))
@@ -1586,26 +1411,14 @@ module.exports = kconfig = async (kill, message) => {
 				} else if (args[0].toLowerCase() == 'disable') {
 					nsfw_.splice(chat.id, 1)
 					fs.writeFileSync('./lib/config/NSFW.json', JSON.stringify(nsfw_))
-					kill.reply(from, 'Comandos nsfw desactivamos para este grupo.', id)
+					kill.reply(from, 'Comandos NSFW desactivados para este grupo.', id)
 				} else {
 					kill.reply(from, 'Defina enable o disable', id)
 				}
 			} else if (isGroupMsg) {
-				if (args[0].toLowerCase() == 'enable') {
-					nsfw_.push(chat.id)
-					fs.writeFileSync('./lib/config/NSFW.json', JSON.stringify(nsfw_))
-					kill.reply(from, 'Comandos NSFW activados para este grupo!', id)
-				} else if (args[0].toLowerCase() == 'disable') {
-					nsfw_.splice(chat.id, 1)
-					fs.writeFileSync('./lib/config/NSFW.json', JSON.stringify(nsfw_))
-					kill.reply(from, 'Comandos nsfw desactivamos para este grupo.', id)
-				} else {
-					kill.reply(from, 'Defina enable o disable', id)
-				}
-			} else if (isGroupMsg) {
-				await kill.reply(from, 'Lo sentimos, solo los administradores pueden usar este comando...', id)
+				kill.reply(from, mess.error.Ga, id)
 			} else {
-				await kill.reply(from, 'Este comando solo se puede usar en grupos!', id)
+				kill.reply(from, mess.error.Gp, id)
 			}
             break
 
@@ -1707,14 +1520,13 @@ module.exports = kconfig = async (kill, message) => {
 			break
 			
 
-        case 'google':
-			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
+case 'google':
             if (args.length == 0) return kill.reply(from, `Digite algo para buscar.`, id)
 		    const googleQuery = body.slice(8)
             google({ 'query': googleQuery }).then(results => {
             let vars = `_*Resultados da pesquisa Google de: ${googleQuery}*_\n`
             for (let i = 0; i < results.length; i++) {
-                vars +=  `\n»»————-　★　————-««\n*✅Titulo >* ${results[i].title}\n\n*📱Descripcion >* ${results[i].snippet}\n\n*📁Link >* ${results[i].link}`
+               vars +=  `\n»»————-　★　————-««\n*✅Titulo >* ${results[i].title}\n\n*📱Descripcion >* ${results[i].snippet}\n\n*📁Link >* ${results[i].link}`
             }
                 kill.reply(from, vars, id)
             }).catch(e => {
@@ -2140,9 +1952,8 @@ module.exports = kconfig = async (kill, message) => {
 			break
 
 
-        case 'everyone':
-			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
-			if (isGroupMsg && isGroupAdmins) {
+	case 'everyone':
+			if (isGroupMsg && isGroupAdmins || isGroupMsg && isOwner) {
 				const groupMem = await kill.getGroupMembers(groupId)
 				let hehe = `🛑╔══✪〘 HOLA TODOS MARCADOS 〙✪══\n⚠╠✪〘 Asunto: ${body.slice(10)} 〙✪═\n`
 				for (let i = 0; i < groupMem.length; i++) {
@@ -2150,16 +1961,6 @@ module.exports = kconfig = async (kill, message) => {
 					hehe += ` @${groupMem[i].id.replace(/@c.us/g, '')}\n`
 				}
 				hehe += '\n✔╚═✪〘 Gracias, te amo ❤ 〙✪═'
-				await sleep(2000)
-				await kill.sendTextWithMentions(from, hehe, id)
-			} else if (isGroupMsg && isOwner) {
-				const groupMem = await kill.getGroupMembers(groupId)
-				let hehe = `🛑╔══✪〘 HOLA TODOS MARCADOS 〙✪══\n⚠╠✪〘 Assunto: ${body.slice(10)} 〙✪═\n`
-				for (let i = 0; i < groupMem.length; i++) {
-					hehe += '🔥╠➥ '
-					hehe += ` @${groupMem[i].id.replace(/@c.us/g, '')}\n`
-				}
-				hehe += '✔╚═✪〘 Gracias, te amo ❤ 〙✪═'
 				await sleep(2000)
 				await kill.sendTextWithMentions(from, hehe, id)
 			} else if (isGroupMsg) {
@@ -2412,32 +2213,27 @@ module.exports = kconfig = async (kill, message) => {
 
 
         case 'kick':
-			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
-			const chief = chat.groupMetadata.owner
 			if (isGroupMsg && isGroupAdmins || isGroupMsg && isOwner) {
 				if (!isBotGroupAdmins) return kill.reply(from, mess.error.Ba, id)
 				if (quotedMsg) {
 					const negquo = quotedMsgObj.sender.id
-					if (chief.includes(negquo)) return kill.reply(from, 'Si lo se, este cuate arta😖 pero es el creador del grupo, no puedo sacarlo😖. Tendremos que seguir awantandolo😰.', id)
 					await kill.sendTextWithMentions(from, `Expulsando participante @${negquo} del grupo...`)
 					await kill.removeParticipant(groupId, negquo)
 				} else {
 					if (mentionedJidList.length == 0) return kill.reply(from, 'Escribiste el comando muy mal, arréglalo y envíalo bien.', id)
 					await kill.sendTextWithMentions(from, `Expulsando participante ${mentionedJidList.map(x => `@${x.replace('@c.us', '')}`).join('\n')} del grupo...`)
 					for (let i = 0; i < mentionedJidList.length; i++) {
-						if (chief.includes(mentionedJidList[i])) return kill.reply(from, 'Si lo se, este cuate arta😖 pero es el creador del grupo, no puedo sacarlo😖. Tendremos que seguir awantandolo😰.', id)
-						if (ownerNumber.includes(mentionedJidList[i])) return kill.reply(from, 'Desafortunadamente, es un participante VIP, no puedo expulsar.', id)
+						if (ownerNumber.includes(mentionedJidList[i])) return kill.reply(from, 'Desafortunadamente es un miembro VIP, no puedo expulsarlo.', id)
 						if (groupAdmins.includes(mentionedJidList[i])) return kill.reply(from, mess.error.Kl, id)
 						await kill.removeParticipant(groupId, mentionedJidList[i])
 					}
 				}
 			} else if (isGroupMsg) {
-				await kill.reply(from, 'Lo sentimos, solo los administradores pueden usar este comando...', id)
+				await kill.reply(from, mess.error.Ga, id)
 			} else {
-				await kill.reply(from, 'Este comando solo se puede usar en grupos!', id)
+				await kill.reply(from, mess.error.Gp, id)
 			}
             break
-
 
 
         case 'leave':
@@ -3803,6 +3599,123 @@ module.exports = kconfig = async (kill, message) => {
 			}
 			await kill.reply(from, 'Gracias por informarnos de uno de nuestros errores, estad atentos que cuando lo veamos responderemos!\n\nSi no lo vemos ps te jodiste:D', id)
 			break
+			
+			
+		case 'rank':
+            if (isGroupMsg && isGroupAdmins || isGroupMsg && isOwner) {
+				if (args.length !== 1) return kill.reply(from, 'Defina entre on y off!', id)
+				if (args[0] == 'on') {
+					xp.push(groupId)
+					fs.writeFileSync('./lib/config/xp.json', JSON.stringify(xp))
+					kill.reply(from, `Este grupo ahora es parte del sistema XP.`, id)
+				} else if (args[0] == 'off') {
+					xp.splice(groupId, 1)
+					fs.writeFileSync('./lib/config/xp.json', JSON.stringify(xp))
+					kill.reply(from, 'Este grupo ya no será parte del sistema XP.', id)
+				}
+            } else {
+                kill.reply(from, mess.error.Ga, id)
+            }
+            break
+			
+			
+	case 'level':
+            if (!isxp) return await kill.reply(from, 'Para usar esto, active el sistema XP.', id)
+            if (!isGroupMsg) return await kill.reply(from, mess.error.Gp, id)
+            const userLevel = rank.getLevel(usuario, nivel)
+            const userXp = rank.getXp(usuario, nivel)
+            const ppLink = await kill.getProfilePicFromServer(usuario)
+            if (ppLink === undefined) {
+                var pepe = errorImg
+            } else {
+                pepe = ppLink
+            }
+            const requiredXp = 5 * Math.pow(userLevel, 2) + 50 * userLevel + 100
+            const ranq = new canvas.Rank()
+                .setAvatar(pepe)
+                .setLevel(userLevel)
+                .setLevelColor('#ffa200', '#ffa200')
+                .setRank(Number(rank.getRank(usuario, nivel)))
+                .setCurrentXP(userXp)
+                .setOverlay('#000000', 100, false)
+                .setRequiredXP(requiredXp)
+                .setProgressBar('#ffa200', 'COLOR')
+                .setBackground('COLOR', '#000000')
+                .setUsername(pushname)
+                .setDiscriminator(sender.id.substring(6, 10))
+				ranq.build()
+                .then(async (buffer) => {
+                    canvas.write(buffer, `${sender.id}_card.png`)
+                    await kill.sendFile(from, `${usuario}_card.png`, `${usuario}_card.png`, '', id)
+                    fs.unlinkSync(`${usuario}_card.png`)
+                })
+                .catch(async (err) => {
+                    console.error(err)
+                    await kill.reply(from, 'Error al crear la imagen de clasificación.', id)
+                })
+            break
+			
+	case 'players':
+            if (!isGroupMsg) return kill.reply(from. mess.error.Gp, id)
+            const cklvl = nivel
+            nivel.sort((a, b) => (a.xp < b.xp) ? 1 : -1)
+            let board = '-----[ *RANKS* ]----\n\n'
+            try {
+                for (let i = 0; i < 10; i++) {
+					var role = 'Bronce I'
+					if (cklvl[i].level >= 5) {
+						role = 'Bronce II'
+					} else if (cklvl[i].level >= 10) {
+						role = 'Bronce III'
+					} else if (cklvl[i].level >= 15) {
+						role = 'Bronce IV'
+					} else if (cklvl[i].level >= 20) {
+						role = 'Bronce V'
+					} else if (cklvl[i].level >= 25) {
+						role = 'Plata I'
+					} else if (cklvl[i].level >= 30) {
+						role = 'Plata II'
+					} else if (cklvl[i].level >= 35) {
+						role = 'Plata III'
+					} else if (cklvl[i].level >= 40) {
+						role = 'Plata IV]'
+					} else if (cklvl[i].level >= 45) {
+						role = 'Plata V'
+					} else if (cklvl[i].level >= 50) {
+						role = 'Oro I'
+					} else if (cklvl[i].level >= 55) {
+						role = 'Oro II'
+					} else if (cklvl[i].level >= 60) {
+						role = 'Oro III'
+					} else if (cklvl[i].level >= 65) {
+						role = 'Oro IV'
+					} else if (cklvl[i].level >= 70) {
+						role = 'Oro V'
+					} else if (cklvl[i].level >= 75) {
+						role = 'Diamante I'
+					} else if (cklvl[i].level >= 80) {
+						role = 'Diamante II'
+					} else if (cklvl[i].level >= 85) {
+						role = 'Diamante III'
+					} else if (cklvl[i].level >= 90) {
+						role = 'Diamante IV'
+					} else if (cklvl[i].level >= 95) {
+						role = 'Diamante V]'
+					} else if (cklvl[i].level >= 100) {
+						role = 'Maestro'
+					} else if (cklvl[i].level >= 500) {
+						role = 'Semi-Dios'
+					} else if (cklvl[i].level >= 1000) {
+						role = 'Dios'
+					}
+                board += `${i + 1}. wa.me/${nivel[i].id.replace('@c.us', '')}\n➫ *XP*: ${nivel[i].xp}\n➫ *Level*: ${nivel[i].level}\n➫ *Patente*: ${role}\n\n`
+                }
+                await kill.reply(from, board, id)
+            } catch (err) {
+                console.error(err)
+                await kill.reply(from, 'Puts, ni siquiera tenemos 10 "jugadores" todavía, inténtelo de nuevo cuando tengamos!', id)
+            }
+            break
 			
 	default:
             if (isCmd) {
