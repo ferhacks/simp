@@ -17,10 +17,9 @@ const start = (kill = new Client()) => {
 	
 		// Forçar recarregamento caso obtenha erros
 		kill.onStateChanged((state) => {
-			console.log('[Estado de Íris]', state)
+			console.log('[Estado da Íris]', state)
 			if (state === 'UNPAIRED' || state === 'CONFLICT' || state === 'UNLAUNCHED') kill.forceRefocus()
 		})
-	
 		
         // Le as mensagens e limpa cache
         kill.onMessage((async (message) => {
@@ -46,11 +45,11 @@ const start = (kill = new Client()) => {
 			try {
 				if (event.action == 'add') {
 					if (isAnti && fuck) {
-						await kill.sendText(event.chat, `ESTAS AQUI DE MENOS??`)
+						await kill.sendText(event.chat, `Eh.. Tu que haces aqui?`)
 						await sleep(2000)
 						await kill.removeParticipant(event.chat, event.who)
 					} else if (isFake && !fake) {
-						await kill.sendTextWithMentions(event.chat, `Hola @${event.who.replace('@c.us', '')}, como parte de nuestro sistema de seguridad, los números de fuera de Mexico están prohibidos, si no eres alguien malo y quieres estar en el grupo pacíficamente, contacta a los administradores 😉.\n\nHello @${event.who.replace('@c.us', '')}, as part of our security system, numbers outside Mexico are banned, if you are not someone bad and want to be in the group peacefully, please contact the administrators 😉.\n\nHalo @${event.who.replace('@c.us', '')}, sebagai bagian dari sistem keamanan kami, nomor di luar Mexico dilarang, jika Anda bukan orang jahat dan ingin berada di grup dengan damai, silakan hubungi administrator 😉.\n\nHola @${event.who.replace('@c.us', '')}, como parte de nuestro sistema de seguridad, los números fuera de Brasil están prohibidos, si no eres alguien malo y quieres estar en el grupo pacíficamente, por favor contacte a los administradores 😉.`)
+						await kill.sendTextWithMentions(event.chat, `Olá @${event.who.replace('@c.us', '')}, como parte de nuestro sistema de seguridad, los números de fuera de Mexico están prohibidos, si no eres alguien malo y quieres estar en el grupo pacíficamente, contacta a los administradores 😉.\n\nHello @${event.who.replace('@c.us', '')}, as part of our security system, numbers outside Mexico are banned, if you are not someone bad and want to be in the group peacefully, please contact the administrators 😉.\n\nHalo @${event.who.replace('@c.us', '')}, sebagai bagian dari sistem keamanan kami, nomor di luar Mexico dilarang, jika Anda bukan orang jahat dan ingin berada di grup dengan damai, silakan hubungi administrator 😉.\n\nHola @${event.who.replace('@c.us', '')}, como parte de nuestro sistema de seguridad, los números fuera de Brasil están prohibidos, si no eres alguien malo y quieres estar en el grupo pacíficamente, por favor contacte a los administradores 😉.`)
 						await sleep(4000)
 						await kill.removeParticipant(event.chat, event.who)
 					} else if (isWelkom) {
@@ -70,7 +69,7 @@ const start = (kill = new Client()) => {
 		
 		// Funções para caso seja adicionada em um grupo
         kill.onAddedToGroup(async (chat) => {
-			const wlcmsg = 'Hola! 🌟\nMe solicitaron como BOT para este grupo, y estaré a su disposición! 🤖\nSi quieres ver mis funciones usa /menu!'
+			const wlcmsg = `Hola! 🌟\nMe solicitaron como BOT para este grupo, y estaré a su disposición! 🤖\nSi quieres ver mis funciones usa ${config.prefix}menu!`
 			const lmtgru = await kill.getAllGroups()
             let totalMem = chat.groupMetadata.participants.length
 			if (chat.groupMetadata.participants.includes(config.owner)) {
@@ -91,7 +90,7 @@ const start = (kill = new Client()) => {
 
         // Bloqueia na call
         kill.onIncomingCall(async (call) => {
-            await kill.sendText(call.peerJid, `¡Que pena! Las llamadas no son compatibles y dificultan mucho! 😊\nTe bloqueé para evitar digustos, contacta al dueño wa.me/${config.owner.replace('c.us', '')} para desbloquear. 👋`)
+            await kill.sendText(call.peerJid, `Que pena! Las llamadas no son compatibles y dificultan mucho! 😊\nTe bloqueé para evitar digustos, contacta al dueño wa.me/${config.owner.replace('c.us', '')} para desbloquear. 👋`)
             await kill.contactBlock(call.peerJid)
         })
     }
