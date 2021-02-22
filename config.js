@@ -4,7 +4,7 @@ const fs = require('fs-extra')
 const axios = require('axios')
 const sharp = require('sharp')
 const math = require('mathjs')
-const search = require("simple-play-store-search")
+const search = require("google-play-store-search")
 const google = require('google-it')
 const isPorn = require('is-porn')
 const imgsearch = require('node-reverse-image-search')
@@ -328,8 +328,8 @@ const double = Math.floor(Math.random() * 2) + 1
             }
             break
 			
-		case 'samu330':
-		case 'samu':
+		case 'aidenaaaaaaa':
+		case 'aidenaaaaaaaa':
 			//SI VAN A MODIFICAR EL BOT, PORFAVOR NO QUITAR NI MODIFICAR ESTA PARTE PORFAVOR, GRACIAS.
     			await kill.reply(from, '😍🤗 *GRACIAS POR INTERESARTE EN MI* Y GRACIAS POR USAR MI BOT\n\n*TE GUSTARIA APOYARME?😖*\nPls no es complicado, solo te pido una suscripcion a mi canal:D\nSI?😰\nAIIII GRACIAS☺, AVER PS, AQUI TE DEJO MI CANAL:D\n\nhttps://www.youtube.com/channel/UCHD4T8Pfcv5PFVzsAbfAPZA\n\n_SI COMPARTES ME AYUDARIAS MAS_ *GRACIAS!😉*', id)
    			break
@@ -727,7 +727,7 @@ const double = Math.floor(Math.random() * 2) + 1
 		case 'program':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
 			if (isGroupMsg) return kill.reply(from, 'Es posible que este grupo no permita enlaces, así que use este comando en el PV ok?', id)
-			kill.sendLinkWithAutoPreview(from, 'https://chat.whatsapp.com/Dwu4XpOYOGCDHYDlSoZZG0', '¡Qué bueno que te hayas interesado en TeamBot! \n¡Aquí está nuestro grupo!!', id)
+			kill.sendLinkWithAutoPreview(from, 'https://chat.whatsapp.com/CkwDQ0JF19tH5Gor6TqV9E', '¡Qué bueno que te hayas interesado en Support! \n¡Aquí está nuestro grupo!!', id)
 			break
 			
 			
@@ -1148,7 +1148,7 @@ const double = Math.floor(Math.random() * 2) + 1
 		case 'qr':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
 			const qrco = body.slice(4)
-			await kill.sendFileFromUrl(from, `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrco}`, '', 'Su mensaje fue insertado en este QRCode, disfrute.\n\nBy samu330-iris.', id)
+			await kill.sendFileFromUrl(from, `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrco}`, '', 'Su mensaje fue insertado en este QRCode, disfrute.\n\nBy aiden-iris.', id)
 			break
 
 
@@ -1318,7 +1318,7 @@ case 'tts':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
 			try {
 				const iris = await axios.get(`http://simsumi.herokuapp.com/api?text=${body.slice(6)}&lang=es`)
-				if (iris.data.success == '') {
+				if (simp.data.success == '') {
 					console.log('Solicitud fallida, usando respuestas locales...')
 					let rndrl = fs.readFileSync('./lib/config/reply.txt').toString().split('\n')
 					let repl = rndrl[Math.floor(Math.random() * rndrl.length)]
@@ -1326,7 +1326,7 @@ case 'tts':
 					console.log(resmf)
 					kill.reply(from, resmf, id)
 				} else {
-					await kill.reply(from, iris.data.success, id)
+					await kill.reply(from, simp.data.success, id)
 				}
 			} catch (error) {
 					console.log('Solicitud fallida, usando respuestas locales...')
@@ -1826,7 +1826,7 @@ case 'google':
             const chatz = await kill.getAllChatIds()
             for (let ids of chatz) {
                 var cvk = await kill.getChatById(ids)
-                if (!cvk.isReadOnly) await kill.sendText(ids, `[Transmisión del propietario de Iris]\n\n${msg}`)
+                if (!cvk.isReadOnly) await kill.sendText(ids, `[Transmisión del propietario de simp]\n\n${msg}`)
             }
             kill.reply(from, 'Difusión exitosa!', id)
             break
@@ -1934,7 +1934,7 @@ case 'google':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
 			if (args.length == 1) {
 				const ip = await axios.get(`http://ipwhois.app/json/${body.slice(5)}`)
-				await kill.sendLinkWithAutoPreview(from, `http://www.google.com/maps/place/${ip.data.latitude},${ip.data.longitude}`, `\n✪ IP: ${ip.data.ip}\n\n✪ Tipo: ${ip.data.type}\n\n✪ Region: ${ip.data.region}\n\n✪ Cidad: ${ip.data.city}\n\n✪ Latitud: ${ip.data.latitude}\n\n✪ Longitud: ${ip.data.longitude}\n\n✪ Provedor: ${ip.data.isp}\n\n✪ Continente: ${ip.data.continent}\n\n✪ Sigla del continente: ${ip.data.continent_code}\n\n✪ País: ${ip.data.country}\n\n✪ Sigla del País: ${ip.data.country_code}\n\n✪ Capital del País: ${ip.data.country_capital}\n\n✪ DDI: ${ip.data.country_phone}\n\n✪ Países Vecinos: ${ip.data.country_neighbours}\n\n✪ Horário: ${ip.data.timezone} ${ip.data.timezone_name} ${ip.data.timezone_gmt}\n\n✪ Moneda: ${ip.data.currency}\n\n✪ Sigla da Moneda: ${ip.data.currency_code}\n\nBusqueda de IP realizada por Íris - Samu330!`, id)
+				await kill.sendLinkWithAutoPreview(from, `http://www.google.com/maps/place/${ip.data.latitude},${ip.data.longitude}`, `\n✪ IP: ${ip.data.ip}\n\n✪ Tipo: ${ip.data.type}\n\n✪ Region: ${ip.data.region}\n\n✪ Cidad: ${ip.data.city}\n\n✪ Latitud: ${ip.data.latitude}\n\n✪ Longitud: ${ip.data.longitude}\n\n✪ Provedor: ${ip.data.isp}\n\n✪ Continente: ${ip.data.continent}\n\n✪ Sigla del continente: ${ip.data.continent_code}\n\n✪ País: ${ip.data.country}\n\n✪ Sigla del País: ${ip.data.country_code}\n\n✪ Capital del País: ${ip.data.country_capital}\n\n✪ DDI: ${ip.data.country_phone}\n\n✪ Países Vecinos: ${ip.data.country_neighbours}\n\n✪ Horário: ${ip.data.timezone} ${ip.data.timezone_name} ${ip.data.timezone_gmt}\n\n✪ Moneda: ${ip.data.currency}\n\n✪ Sigla da Moneda: ${ip.data.currency_code}\n\nBusqueda de IP realizada por Íris - aiden!`, id)
             } else {
 				await kill.reply(from, 'Especifique un IP de tipo IPV4.', id)
             }
@@ -2434,7 +2434,7 @@ case 'google':
         case 'encerrar':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
             if (!isOwner) return kill.reply(from, 'Solo mi creador tiene acceso a este comando.', id)
-			kill.reply(from, '¡Pedido recibido! \nIris se desconectará en 5 segundos.', id)
+			kill.reply(from, '¡Pedido recibido! \nsimp se desconectará en 5 segundos.', id)
 		    await sleep(5000)
 			await kill.kill()
             break
@@ -3334,7 +3334,7 @@ case 'google':
 			const timed = moment(t * 1000).format('DD/MM/YY HH:mm:ss')
 			const allin = `Hola usuário "@${sender.id}"!\n\nMe lleve ${processTime(t, moment())} segundos para responder😬Ando lag verdad?:(.\n\nAhora son exactamente "${timed}".\nAqui abajito estan mis funciones:D Porfavor tratame bien, si no quieres que deje tu grupo:).\n`
             kill.sendTextWithMentions(from, allin + help, id)
-            kill.reply(from, '👑De otros comandos tenemos...\n\n*/Admins* _⚠es para administradores._\n\n*/Kill* _🔥es solo para mi dueño._\n\n*/Adult* _😈🤤es el menú de comandos para adultos *(El favorito de Samu)* Ok no:D._\n\n*/Down* _📲📁es el menú de descarga de música y video._', id)
+            kill.reply(from, '👑De otros comandos tenemos...\n\n*/Admins* _⚠es para administradores._\n\n*/Kill* _🔥es solo para mi dueño._\n\n*/Adult* _😈🤤es el menú de comandos para adultos *(El favorito de aiden)* Ok no:D._\n\n*/Down* _📲📁es el menú de descarga de música y video._', id)
             break
 
 
@@ -3509,14 +3509,14 @@ case 'google':
 					const pvmt = body.slice(11) + '@c.us'
 					slce.push(pvmt)
 					fs.writeFileSync('./lib/config/silence.json', JSON.stringify(slce))
-					await kill.reply(from, 'No podrá usar iris.', id)
+					await kill.reply(from, 'No podrá usar simp.', id)
 				} else if (args[0] == 'off') {
 					if (args.length == 0) return kill.reply(from, 'Deve definir [on y off] y luego el número de la persona sin - o +.', id)
 					const pvmt = body.slice(11) + '@c.us'
 					let pvtnm = slce.indexOf(pvmt)
 					slce.splice(pvtnm, 1)
 					fs.writeFileSync('./lib/config/silence.json', JSON.stringify(slce))
-					await kill.reply(from, 'No podrá usar iris.', id)
+					await kill.reply(from, 'No podrá usar simp.', id)
 				} else {
 					await kill.reply(from, 'Deve definir [on y off] y luego el número de la persona sin - o +.', id)
 				}
@@ -3587,7 +3587,7 @@ case 'google':
 			
 			
 		case 'help':
-			if (args.length == 0) return kill.reply(from, 'Define tu problema para enviarlo al grupo responsable de Iris.', id)
+			if (args.length == 0) return kill.reply(from, 'Define tu problema para enviarlo al grupo responsable de simp.', id)
 			const hpgp = groupId.replace('@g.us', '')
 			const hppv = sender.id.replace('@c.us', '')
 			if (isGroupMsg) {
