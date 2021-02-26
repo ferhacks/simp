@@ -4,12 +4,12 @@ const fs = require('fs-extra') // Modulo de operações em disco
 module.exports = options = (headless, start) => {
     const options = {
         sessionId: 'Iris',
-        headless: headless,
+        headless: false,
         qrTimeout: 0,
         authTimeout: 0,
         restartOnCrash: start,
         cacheEnabled: false,
-        //useChrome: true,
+        useChrome: true,
         killProcessOnBrowserClose: true,
         throwErrorOnTosBlock: false,
         chromiumArgs: [

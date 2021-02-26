@@ -1,4 +1,5 @@
 const { create, Client } = require('@open-wa/wa-automate') // As consts aqui declaram as funções de outros arquivos
+const canvas = require('canvas-constructor')
 const fs = require('fs-extra')
 const kconfig = require('./config')
 const options = require('./options')
@@ -31,42 +32,7 @@ const start = (kill = new Client()) => {
             })
             kconfig(kill, message)
         }))
-		
-		// Configuração do welcome
-		kill.onGlobalParticipantsChanged(async (event) => {
-			const ddi = config.ddi
-			const isWelkom = welkom.includes(event.chat)
-			const isFake = fks.includes(event.chat)
-			const fake = event.who.startsWith(ddi)
-			const isAnti = anti.includes(event.chat)
-			const fuck = bklist.includes(event.who)
-			const gChat = await kill.getChatById(event.chat)
-			const { contact, groupMetadata, name } = gChat
-			try {
-				if (event.action == 'add') {
-					if (isAnti && fuck) {
-						await kill.sendText(event.chat, `Eh.. Tu que haces aqui?`)
-						await sleep(2000)
-						await kill.removeParticipant(event.chat, event.who)
-					} else if (isFake && !fake) {
-						await kill.sendTextWithMentions(event.chat, `Olá @${event.who.replace('@c.us', '')}, como parte de nuestro sistema de seguridad, los números de fuera de Mexico están prohibidos, si no eres alguien malo y quieres estar en el grupo pacíficamente, contacta a los administradores 😉.\n\nHello @${event.who.replace('@c.us', '')}, as part of our security system, numbers outside Mexico are banned, if you are not someone bad and want to be in the group peacefully, please contact the administrators 😉.\n\nHalo @${event.who.replace('@c.us', '')}, sebagai bagian dari sistem keamanan kami, nomor di luar Mexico dilarang, jika Anda bukan orang jahat dan ingin berada di grup dengan damai, silakan hubungi administrator 😉.\n\nHola @${event.who.replace('@c.us', '')}, como parte de nuestro sistema de seguridad, los números fuera de Brasil están prohibidos, si no eres alguien malo y quieres estar en el grupo pacíficamente, por favor contacte a los administradores 😉.`)
-						await sleep(4000)
-						await kill.removeParticipant(event.chat, event.who)
-					} else if (isWelkom) {
-						await kill.sendTextWithMentions(event.chat, `Hola @${event.who.replace('@c.us', '')}! 🥰 \n\nY bienvenido a ${name} 😎 \n\nQueremos que te diviertas y obviamente sigas nuestras reglas.! ✅ \n\nSi es necesario, llame a un administrador o escriba ${config.prefix}menu. 👨🏻‍💻`)
-					}
-				} else if (event.action == 'remove' && isWelkom) {
-					var profile = await kill.getProfilePicFromServer(event.who)
-					if (profile == '' || profile == undefined) profile = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTQcODjk7AcA4wb_9OLzoeAdpGwmkJqOYxEBA&usqp=CAU'
-					await kill.sendFileFromUrl(event.chat, profile, 'profile.jpg', '')
-					await kill.sendTextWithMentions(event.chat, `SE FUEEEEEEEE🎶🎵...... @${event.who.replace('@c.us', '')} ... \nF. ~Nadie lo extrañara~ Sigamos en lo que estabamos.🙂`)
-				}
-			} catch (err) {
-				console.log(err)
-			}
-        })
-        
-		
+	
 		// Funções para caso seja adicionada em um grupo
         kill.onAddedToGroup(async (chat) => {
 			const wlcmsg = `Hola! 🌟\nMe solicitaron como BOT para este grupo, y estaré a su disposición! 🤖\nSi quieres ver mis funciones usa ${config.prefix}menu!`

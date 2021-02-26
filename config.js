@@ -3,8 +3,9 @@ const { decryptMedia } = require('@open-wa/wa-decrypt')
 const fs = require('fs-extra')
 const axios = require('axios')
 const sharp = require('sharp')
+const welcom = require('discord-canvas')
 const math = require('mathjs')
-const search = require("google-play-store-search")
+const search = require("simple-play-store-search")
 const google = require('google-it')
 const isPorn = require('is-porn')
 const imgsearch = require('node-reverse-image-search')
@@ -14,7 +15,7 @@ const get = require('got')
 const sinesp = require('sinesp-api')
 const { Aki } = require('aki-api')
 const request = require('request')
-const canvas = require('canvacord')
+const canvas = require("canvacord")
 const { spawn, exec, execFile } = require('child_process')
 const nhentai = require('nhentai-js')
 const { API } = require('nhentai-api')
@@ -28,7 +29,7 @@ const { owner, donate, down, help, admins, adult, readme, lang, convh } = requir
 const { stdout } = require('process')
 const bent = require('bent')
 const { doing } = require('./lib/translate.js')
-const { meme, msgFilter, translate, killo, ngtts } = require('./lib')
+const {rank, meme, msgFilter, translate, ngtts, killo } = require('./lib')
 const { uploadImages } = require('./lib/fether')
 const feature = require('./lib/poll')
 const { sobre } = require('./lib/sobre')
@@ -138,53 +139,69 @@ const double = Math.floor(Math.random() * 2) + 1
         }
 	
 	
-	// Sobe patente por nivel, mude pro que quiser dentro das aspas
+
+
+		// Sobe patente por nivel, mude pro que quiser dentro das aspas
         const check = rank.getLevel(sender.id, nivel)
-		var patente = 'Bronce I'
-		if (check >= 5) {
+		var patente = 'Cobre'
+		if (check <= 4) {
+			patente = 'Bronce I'
+		} else if (check <= 10) {
 			patente = 'Bronce II'
-		} else if (check >= 10) {
+		} else if (check <= 15) {
 			patente = 'Bronce III'
-		} else if (check >= 15) {
+		} else if (check <= 20) {
 			patente = 'Bronce IV'
-		} else if (check >= 20) {
+		} else if (check <= 25) {
 			patente = 'Bronce V'
-		} else if (check >= 25) {
+		} else if (check <= 30) {
 			patente = 'Plata I'
-		} else if (check >= 30) {
+		} else if (check <= 35) {
 			patente = 'Plata II'
-		} else if (check >= 35) {
+		} else if (check <= 40) {
 			patente = 'Plata III'
-		} else if (check >= 40) {
+		} else if (check <= 45) {
 			patente = 'Plata IV'
-		} else if (check >= 45) {
+		} else if (check <= 50) {
 			patente = 'Plata V'
-		} else if (check >= 50) {
+		} else if (check <= 55) {
 			patente = 'Oro I'
-		} else if (check >= 55) {
+		} else if (check <= 60) {
 			patente = 'Oro II'
-		} else if (check >= 60) {
+		} else if (check <= 65) {
 			patente = 'Oro III'
-		} else if (check >= 65) {
+		} else if (check <= 70) {
 			patente = 'Oro IV'
-		} else if (check >= 70) {
+		} else if (check <= 75) {
 			patente = 'Oro V'
-		} else if (check >= 75) {
+		} else if (check <= 80) {
 			patente = 'Diamante I'
-		} else if (check >= 80) {
+		} else if (check <= 85) {
 			patente = 'Diamante II'
-		} else if (check >= 85) {
+		} else if (check <= 90) {
 			patente = 'Diamante III'
-		} else if (check >= 90) {
+		} else if (check <= 95) {
 			patente = 'Diamante IV'
-		} else if (check >= 95) {
+		} else if (check <= 100) {
 			patente = 'Diamante V'
-		} else if (check >= 100) {
-			patente = 'Maestro'
-		} else if (check >= 500) {
+		} else if (check <= 200) {
+			patente = 'Diamante Maestro'
+		} else if (check <= 300) {
+			patente = 'Elite'
+		} else if (check <= 400) {
+			patente = 'Global'
+		} else if (check <= 500) {
+			patente = 'Héroe'
+		} else if (check <= 600) {
+			patente = 'Legendario'
+		} else if (check <= 700) {
 			patente = 'Semi-Dios'
-		} else if (check >= 1000) {
-			patente = 'Dios'
+		} else if (check <= 800) {
+			patente = 'Arcángel'
+		} else if (check <= 900) {
+			patente = 'Demoníaco'
+		} else if (check <= 1000 || check >= 1000) {
+			patente = 'Divinidad'
 		}
 		
 		
@@ -206,6 +223,67 @@ const double = Math.floor(Math.random() * 2) + 1
                 console.error(err)
             }
         }
+
+
+// Configuração do welcome
+    kill.onGlobalParticipantsChanged(async (event) => {
+        const iswelkom = welkom.includes(event.chat)
+        const gcChat = await kill.getChatById(event.chat)
+        const pcChat = await kill.getContact(event.who)
+        let { pushname, verifiedName, formattedName } = pcChat
+        pushname = pushname || verifiedName || formattedName
+        const { name, groupMetadata } = gcChat
+        const botNumbers = await kill.getHostNumber() + '@c.us'
+        try {
+            if (event.action === 'add' && event.who !== botNumbers && iswelkom) {
+                const pic = await kill.getProfilePicFromServer(event.who)
+                if (pic === undefined) {
+                    var picx = 'https://i.ibb.co/Tq7d7TZ/age-hananta-495-photo.png'
+                } else {
+                    picx = pic
+                }
+                const welcomer = await new welcom.Welcome()
+                    .setUsername(pushname)
+                    .setDiscriminator(event.who.substring(6, 10))
+                    .setMemberCount(groupMetadata.participants.length)
+                    .setGuildName(name)
+                    .setAvatar(picx)
+                    .setColor('border', '#00100C')
+                    .setColor('username-box', '#00100C')
+                    .setColor('discriminator-box', '#00100C')
+                    .setColor('message-box', '#00100C')
+                    .setColor('title', '#00FFFF')
+                    .setBackground('https://www.photohdx.com/images/2016/05/red-blurry-background.jpg')
+                    .toAttachment()
+                const base64 = `data:image/png;base64,${welcomer.toBuffer().toString('base64')}`
+                await kill.sendFile(event.chat, base64, 'welcome.png', `Bienvenido ${pushname}!`)
+            } else if (event.action === 'remove' && event.who !== botNumbers && iswelkom) {
+                const pic = await kill.getProfilePicFromServer(event.who)
+                if (pic === undefined) {
+                    var picxs = 'https://i.ibb.co/Tq7d7TZ/age-hananta-495-photo.png'
+                } else {
+                    picxs = pic
+                }
+                const bye = await new welcom.Goodbye()
+                    .setUsername(pushname)
+                    .setDiscriminator(event.who.substring(6, 10))
+                    .setMemberCount(groupMetadata.participants.length)
+                    .setGuildName(name)
+                    .setAvatar(picxs)
+                    .setColor('border', '#00100C')
+                    .setColor('username-box', '#00100C')
+                    .setColor('discriminator-box', '#00100C')
+                    .setColor('message-box', '#00100C')
+                    .setColor('title', '#00FFFF')
+                    .setBackground('https://www.photohdx.com/images/2016/05/red-blurry-background.jpg')
+                    .toAttachment()
+                const base64 = `data:image/png;base64,${bye.toBuffer().toString('base64')}`
+                await kill.sendFile(event.chat, base64, 'welcome.png', `Bye ${pushname}, we will miss you`)
+            }
+        } catch (err) {
+            console.error(err)
+        }
+    })	
 
         // ANTI LINK DE GRUPO
         if (isGroupMsg && !isGroupAdmins && isBotGroupAdmins && isLeg && !isOwner) {
@@ -250,7 +328,7 @@ const double = Math.floor(Math.random() * 2) + 1
         if (isGroupMsg && autoSticker && isMedia && isImage && !isCmd) {
             const mediaData = await decryptMedia(message, uaOverride)
             const imageBase64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
-            await kill.sendImageAsSticker(from, imageBase64)
+            await kill.sendImageAsSticker(from, imageBase64,{author: 'Aiden, Simp bot', pack: '+55 11 94753-2586' })
         }
 		
 
@@ -298,7 +376,7 @@ const double = Math.floor(Math.random() * 2) + 1
 				.then(async (resizedImageBuffer) => {
 					let resizedImageData = resizedImageBuffer.toString('base64');
 					let resizedBase64 = `data:${mimetype};base64,${resizedImageData}`;
-					await kill.sendImageAsSticker(from, resizedBase64)
+					await kill.sendImageAsSticker(from, resizedBase64, {author: 'Aiden, Simp bot', pack: '+55 11 94753-2586' })
 					await kill.reply(from, '*SU STICKER SE CREO CORRECTAMENTE😉', id)
 				})
             } else if (isQuotedImage) {
@@ -311,14 +389,14 @@ const double = Math.floor(Math.random() * 2) + 1
 				.then(async (resizedImageBuffer) => {
 					let resizedImageData = resizedImageBuffer.toString('base64');
 					let resizedBase64 = `data:${quotedMsg.mimetype};base64,${resizedImageData}`;
-					await kill.sendImageAsSticker(from, resizedBase64)
+					await kill.sendImageAsSticker(from, resizedBase64, {author: 'Aiden, Simp bot', pack: '+55 11 94753-2586' })
 					await kill.reply(from, '*SU STICKER SE CREO CORRECTAMENTE😉', id)
 
 				})
             } else if (args.length == 1) {
                 const url = args[0]
                 if (isUrl(url)) {
-                    await kill.sendStickerfromUrl(from, url, { method: 'get' })
+                    await kill.sendStickerfromUrl(from, url, { method: 'get' }, {author: 'Aiden, Simp bot', pack: '+55 11 94753-2586' })
                         .catch(err => console.log('Erro: ', err))
                 } else {
 					kill.reply(from, mess.error.Iv, id)
@@ -894,7 +972,7 @@ const double = Math.floor(Math.random() * 2) + 1
         case 'fox':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
             const fox = await axios.get(`https://some-random-api.ml/img/fox`)
-			await kill.sendFileFromUrl(from, fox.data.link, ``, 'Que hermoso zorro:v <3', id)
+			await kill.sendFileFromUrl(from, fox.data.link, ``, 'Que hermoso zorro <3', id)
 			break
 
 
@@ -2194,13 +2272,13 @@ case 'google':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
 			if (isGroupMsg && isGroupAdmins) {
 				if (!isBotGroupAdmins) return kill.reply(from, mess.error.Ba, id)
-				if (!quotedMsg) return kill.reply(from, 'Marcar el mensaje del baneado:v.', id) 
+				if (!quotedMsg) return kill.reply(from, 'Marcar el mensaje del baneado.', id) 
 				const unbanq = quotedMsgObj.sender.id
 				await kill.sendTextWithMentions(from, `La prohibicion se a desecho @${unbanq} y eh permitido la entrada de nuevo al grupo...`)
 				await kill.addParticipant(groupId, unbanq)
 			} else if (isGroupMsg && isOwner) {
 				if (!isBotGroupAdmins) return kill.reply(from, mess.error.Ba, id)
-				if (!quotedMsg) return kill.reply(from, 'MarqueMarcar el mensaje del baneado:v.', id) 
+				if (!quotedMsg) return kill.reply(from, 'MarqueMarcar el mensaje del baneado.', id) 
 				const unbanq = quotedMsgObj.sender.id
 				await kill.sendTextWithMentions(from, `La prohibicion se a desecho @${unbanq} y eh permitido la entrada de nuevo al grupo...`)
 				await kill.addParticipant(groupId, unbanq)
@@ -2376,7 +2454,6 @@ case 'google':
 
         case 'tela':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
-            if (args.length == 0) return kill.reply(from, 'Este comando es solo para mi creador', id)
             const sesPic = await kill.getSnapshot()
             kill.sendFile(from, sesPic, 'session.png', 'Neh...', id)
             break
@@ -3053,10 +3130,10 @@ case 'google':
 					await kill.sendFileFromUrl(from, hentai4.data.url, ``, 'Espero que disfrutes del hentai e.e', id)
 				} else if (selnum == 5) {
 					const hentai5 = await axios.get('https://nekos.life/api/v2/img/hentai')
-					await kill.sendFileFromUrl(from, hentai5.data.url, ``, 'Buen hentaizinho:v...', id)
+					await kill.sendFileFromUrl(from, hentai5.data.url, ``, 'Buen hentaizinho...', id)
 				} else if (selnum == 6) {
 					const hentai6 = await axios.get('https://nekos.life/api/v2/img/pussy')
-					await kill.sendFileFromUrl(from, hentai6.data.url, ``, 'Buen hentaizinho:v...', id)
+					await kill.sendFileFromUrl(from, hentai6.data.url, ``, 'Buen hentaizinho...', id)
 				}
             } else {
 			    if (selnum == 1) {
@@ -3283,7 +3360,7 @@ case 'google':
 		case 'chance':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
 			if (args.length == 0) return kill.reply(from, 'Establecer algo para analizar.', id)
-			await kill.reply(from, `_De acuerdo con mis cálculos súper avanzados de robot ":v" ..._ \n\n*"${body.slice(8)}"*\n\n_...la posibilidad de ser realidad es del_ *${lvpc}%.*`, id)
+			await kill.reply(from, `_De acuerdo con mis cálculos súper avanzados de robot "" ..._ \n\n*"${body.slice(8)}"*\n\n_...la posibilidad de ser realidad es del_ *${lvpc}%.*`, id)
 			break
 
 
@@ -3620,6 +3697,7 @@ case 'google':
 			
 			
 	case 'level':
+			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
             if (!isxp) return await kill.reply(from, 'Para usar esto, active el sistema XP.', id)
             if (!isGroupMsg) return await kill.reply(from, mess.error.Gp, id)
             const userLevel = rank.getLevel(usuario, nivel)
@@ -3656,6 +3734,7 @@ case 'google':
             break
 			
 	case 'players':
+			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
             if (!isGroupMsg) return kill.reply(from. mess.error.Gp, id)
             const cklvl = nivel
             nivel.sort((a, b) => (a.xp < b.xp) ? 1 : -1)
