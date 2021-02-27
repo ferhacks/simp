@@ -30,7 +30,6 @@ COPY package*.json ./
 
 RUN npm install
 
-RUN pip3 install s3cmd
 # If you are building your code for production
 # RUN npm ci --only=production
 
@@ -48,6 +47,7 @@ RUN export SCREENDIR=$HOME/.screen
 RUN chmod u+s /usr/bin/screen
 
 
-RUN chmod +x ./sync.sh
+RUN chmod +x ./start.sh
+RUN chmod +x ./bashh.sh
 
 CMD bash ./start.sh
