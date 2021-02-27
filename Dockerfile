@@ -45,6 +45,7 @@ RUN export SCREENDIR=$HOME/.screen
 # Workaround for screen: /usr/bin/screen cannot be installed with setgid "utmp": https://github.com/stucki/docker-cyanogenmod/issues/2
 # Install screen with setuid root instead (that's ok on a single-user system)
 RUN chmod u+s /usr/bin/screen
+RUN chmod 755 /var/run/screen
 
 
 RUN chmod +x ./start.sh
