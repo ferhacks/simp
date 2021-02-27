@@ -230,6 +230,7 @@ const double = Math.floor(Math.random() * 2) + 1
         const iswelkom = welkom.includes(event.chat)
         const gcChat = await kill.getChatById(event.chat)
         const pcChat = await kill.getContact(event.who)
+        const fuck = bklist.includes(event.who)
         let { pushname, verifiedName, formattedName } = pcChat
         pushname = pushname || verifiedName || formattedName
         const { name, groupMetadata } = gcChat
@@ -257,6 +258,10 @@ const double = Math.floor(Math.random() * 2) + 1
                     .toAttachment()
                 const base64 = `data:image/png;base64,${welcomer.toBuffer().toString('base64')}`
                 await kill.sendFile(event.chat, base64, 'welcome.png', `Bienvenido ${pushname}!`)
+               } else if (fuck) {
+		await kill.sendText(event.chat, `Eh.. Tu que haces aqui?`)
+		await sleep(2000)
+		await kill.removeParticipant(event.chat, event.who)
             } else if (event.action === 'remove' && event.who !== botNumbers && iswelkom) {
                 const pic = await kill.getProfilePicFromServer(event.who)
                 if (pic === undefined) {
@@ -3668,11 +3673,11 @@ case 'google':
 			const hpgp = groupId.replace('@g.us', '')
 			const hppv = sender.id.replace('@c.us', '')
 			if (isGroupMsg) {
-				await kill.sendText(ownerNumber, `⚠️ _Solicitud de soporte realizada por_ *${name}*, _a pedido de_ *${pushname}* _del numero_ wa.me/${sender.id.replace('@c.us', '')}.\n\n_Motivo:_ ${body.slice(6)}`)
-				await kill.sendText(ownerNumber, `${prefix}enviar -gp ${hpgp} | Responda con una solucion`)
+				await kill.sendText(`595962252137-1607818244@g.us`, `⚠️ _Solicitud de soporte realizada por_ *${name}*, _a pedido de_ *${pushname}* _del numero_ wa.me/${sender.id.replace('@c.us', '')}.\n\n_Motivo:_ ${body.slice(6)}`)
+				await kill.sendText(`595962252137-1607818244@g.us`, `${prefix}enviar -gp ${hpgp} | Responda con una solucion`)
 			} else {
-				await kill.sendText(ownerNumber, `⚠️ _Solicitud de soporte realizada por_ *${pushname}* _del número_ wa.me/${sender.id.replace('@c.us', '')}.\n\n_Motivo:_ ${body.slice(6)}`)
-				await kill.sendText(ownerNumber, `${prefix}enviar -pv ${hppv} | Responda con una solucion`)
+				await kill.sendText(`595962252137-1607818244@g.us`, `⚠️ _Solicitud de soporte realizada por_ *${pushname}* _del número_ wa.me/${sender.id.replace('@c.us', '')}.\n\n_Motivo:_ ${body.slice(6)}`)
+				await kill.sendText(`595962252137-1607818244@g.us`, `${prefix}enviar -pv ${hppv} | Responda con una solucion`)
 			}
 			await kill.reply(from, 'Gracias por informarnos de uno de nuestros errores, estad atentos que cuando lo veamos responderemos!\n\nSi no lo vemos ps te jodiste:D', id)
 			break
