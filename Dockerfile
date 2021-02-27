@@ -43,6 +43,11 @@ RUN mkdir ~/.screen \
 
 RUN export SCREENDIR=$HOME/.screen
 
-RUN chmod +x /botwsp/back/sync.sh
+# Workaround for screen: /usr/bin/screen cannot be installed with setgid "utmp": https://github.com/stucki/docker-cyanogenmod/issues/2
+# Install screen with setuid root instead (that's ok on a single-user system)
+RUN chmod u+s /usr/bin/screen
 
-CMD bash /botwsp/start.sh
+
+RUN chmod +x ./sync.sh
+
+CMD bash ./start.sh
