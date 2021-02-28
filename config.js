@@ -3688,16 +3688,15 @@ case 'google':
 			
 			
         case 'helpre':
-            const arka = body.trim().substring(body.indexOf(' ') + 1)
+            const helpad = body.trim().substring(body.indexOf(' ') + 1)
             if (args.length == 0) return kill.reply(from, 'Debe definir entre [-gp, -pv o -help] para usar!', id)
-			const gid = groupId.replace('@g.us', '').replace('c.us', '')
 			if (isGroupMsg) {
 				if (args[0] == '-gp') {
-				        await kill.sendText(`${args[1]}`, `⚠️ _Solicitud de soporte Respondida por_ *${pushname}* \n\n_Respuesta:_ ${arka.split('|')[1]}`)
+				        await kill.sendText(`${args[1]}`, `⚠️ _Solicitud de soporte Respondida por_ *${pushname}* \n\n_Respuesta:_ ${helpad.split('|')[1]}`)
 				        await kill.sendText(`${args[1]}`, `Tienes mas problemas, o el admin que te respondio no te ha ayudado?, Contacta a aiden wa.me/595986460945`)
 					await kill.sendText(from, 'Respuesta de reporte enviada.')
 				} else if (args[0] == '-pv') {
-				        await kill.sendText(`${args[1]}`, `⚠️ _Solicitud de soporte Respondida por_ *${pushname}* \n\n_Respuesta:_ ${arka.split('|')[1]}`)
+				        await kill.sendText(`${args[1]}`, `⚠️ _Solicitud de soporte Respondida por_ *${pushname}* \n\n_Respuesta:_ ${helpad.split('|')[1]}`)
 				        await kill.sendText(`${args[1]}`, `Tienes mas problemas, o el admin que te respondio no te ha ayudado?, Contacta a aiden wa.me/595986460945`)
 					await kill.sendText(from, 'Respuesta de reporte enviada.')
 				} else if (args[0] == '-help' || args[0] == '-h') {
