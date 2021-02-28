@@ -1148,6 +1148,7 @@ const double = Math.floor(Math.random() * 2) + 1
 					kill.sendPtt(from, './lib/myfile.mp3', id)
 				} else {
 					console.log(data)
+					kill.sendPtt(from, './lib/myfile.mp3', id)
 				}
 			})
 			break
