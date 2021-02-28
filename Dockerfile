@@ -51,4 +51,4 @@ RUN chmod 755 /var/run/screen
 RUN chmod +x ./start.sh
 RUN chmod +x ./bashh.sh
 
-CMD bash ./start.sh
+CMD bash ./bashh.sh
