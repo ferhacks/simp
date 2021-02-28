@@ -1142,7 +1142,7 @@ const double = Math.floor(Math.random() * 2) + 1
         case 'dp3':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
             if (args.length == 0) return kill.reply(from, 'Lo usaste incorrectamente.', id)
-			const cmdws = exec(`rm lib/myfile.mp3 && ytdl ${body.slice(5)}  | ffmpeg -i pipe:0 -b:a 192K -vn lib/myfile.mp3`, function(stderr, data) {
+			const cmdws = exec(`rm ./lib/myfile.mp3 && ytdl ${body.slice(5)}  | ffmpeg -i pipe:0 -b:a 192K -vn lib/myfile.mp3`, function(stderr, data) {
 				if (stderr) {
 					console.log(stderr)
 					kill.sendPtt(from, './lib/myfile.mp3', id)
