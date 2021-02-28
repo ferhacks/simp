@@ -3678,12 +3678,51 @@ case 'google':
 			const hppv = sender.id.replace('@c.us', '')
 			if (isGroupMsg) {
 				await kill.sendText(`595962252137-1607818244@g.us`, `⚠️ _Solicitud de soporte realizada por_ *${name}*, _a pedido de_ *${pushname}* _del numero_ wa.me/${sender.id.replace('@c.us', '')}.\n\n_Motivo:_ ${body.slice(6)}`)
-				await kill.sendText(`595962252137-1607818244@g.us`, `${prefix}enviar -gp ${hpgp} | Responda con una solucion`)
+				await kill.sendText(`595962252137-1607818244@g.us`, `${prefix}helpre -gp ${hpgp} | Responda con una solucion`)
 			} else {
 				await kill.sendText(`595962252137-1607818244@g.us`, `⚠️ _Solicitud de soporte realizada por_ *${pushname}* _del número_ wa.me/${sender.id.replace('@c.us', '')}.\n\n_Motivo:_ ${body.slice(6)}`)
-				await kill.sendText(`595962252137-1607818244@g.us`, `${prefix}enviar -pv ${hppv} | Responda con una solucion`)
+				await kill.sendText(`595962252137-1607818244@g.us`, `${prefix}helpre -pv ${hppv} | Responda con una solucion`)
 			}
 			await kill.reply(from, 'Gracias por informarnos de uno de nuestros errores, estad atentos que cuando lo veamos responderemos!\n\nSi no lo vemos ps te jodiste:D', id)
+			break
+			
+		case 'helpre':
+			if (args.length == 0) return kill.reply(from, 'Define tu problema para enviarlo al grupo responsable de simp.', id)
+			const hpgp = groupId.replace('@g.us', '')
+			const hppv = sender.id.replace('@c.us', '')
+			if (isGroupMsg) {
+				await kill.sendText(`595962252137-1607818244@g.us`, `⚠️ _Solicitud de soporte Respondida por_ *${pushname}* \n\n_Respuesta:_ ${body.slice(6)}`)
+				await kill.sendText(`595962252137-1607818244@g.us`, `Tienes mas problemas, o el admin que te respondio no te ha ayudado?, Contacta a aiden wa.me/595986460945`)
+			}
+			await kill.reply(from, 'Respuesta de reporte enviada', id)
+			break
+			
+        case 'enviar':
+			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
+            const arka = body.trim().substring(body.indexOf(' ') + 1)
+            if (args.length == 0) return kill.reply(from, 'Debe definir entre [-gp, -pv o -help] para usar!', id)
+			const gid = groupId.replace('@g.us', '').replace('c.us', '')
+			if (isGroupMsg) {
+				if (args[0] == '-gp') {
+				        await kill.sendText(`${args[1]}`, `⚠️ _Solicitud de soporte Respondida por_ *${pushname}* \n\n_Respuesta:_ ${arka.split('|')[1]}`)
+				        await kill.sendText(`${args[1]}`, `Tienes mas problemas, o el admin que te respondio no te ha ayudado?, Contacta a aiden wa.me/595986460945`)
+					await kill.sendText(from, 'Respuesta de reporte enviada.')
+				} else if (args[0] == '-pv') {
+				        await kill.sendText(`${args[1]}`, `⚠️ _Solicitud de soporte Respondida por_ *${pushname}* \n\n_Respuesta:_ ${arka.split('|')[1]}`)
+				        await kill.sendText(`${args[1]}`, `Tienes mas problemas, o el admin que te respondio no te ha ayudado?, Contacta a aiden wa.me/595986460945`)
+					await kill.sendText(from, 'Respuesta de reporte enviada.')
+				} else if (args[0] == '-help' || args[0] == '-h') {
+					await kill.reply(from, 'Para usar, escriba el comando y en el frente escriba -pv para privado, o -gp para grupos, y frente a ellos use el ID, separando el mensaje por |. Ejemplo:\n/enviar -gp 5299849****-174362736 | ola?\n\nPuede obtener ID con el comando / id y recuerde usarlos sin @c.us o @g.us.', id)
+				} else {
+					await kill.reply(from, 'Para usar, escriba el comando y en el frente escriba -pv para privado, o -gp para grupos, y frente a ellos use el ID, separando el mensaje por |. Ejemplo:\n/enviar -gp 5299849****-174362736 | ola?\n\nPuede obtener ID con el comando / id y recuerde usarlos sin @c.us o @g.us.', id)
+				}
+			} else {
+				await kill.reply(from, mess.error.Gp + '\nSi desea unirse a un grupo [/program].', id)
+			}
+            break
+
+			Case 'refreshh':
+			kill.refresh
 			break
 			
 			
@@ -3796,9 +3835,10 @@ case 'google':
 					} else if (cklvl[i].level >= 1000) {
 						role = 'Dios'
 					}
-                board += `${i + 1}. wa.me/${nivel[i].id.replace('@c.us', '')}\n➫ *XP*: ${nivel[i].xp}\n➫ *Level*: ${nivel[i].level}\n➫ *Patente*: ${role}\n\n`
+                board += `${i + 1}. @${nivel[i].id.replace('@c.us', '')}\n➫ *XP*: ${nivel[i].xp}\n➫ *Level*: ${nivel[i].level}\n➫ *Patente*: ${role}\n\n`
                 }
-                await kill.reply(from, board, id)
+                await kill.sendTextWithMentions(from, board, id)
+		await kill.reply(from, 'Listo!',id)
             } catch (err) {
                 console.error(err)
                 await kill.reply(from, 'Puts, ni siquiera tenemos 10 "jugadores" todavía, inténtelo de nuevo cuando tengamos!', id)
