@@ -3686,19 +3686,8 @@ case 'google':
 			await kill.reply(from, 'Gracias por informarnos de uno de nuestros errores, estad atentos que cuando lo veamos responderemos!\n\nSi no lo vemos ps te jodiste:D', id)
 			break
 			
-		case 'helpre':
-			if (args.length == 0) return kill.reply(from, 'Define tu problema para enviarlo al grupo responsable de simp.', id)
-			const hpgp = groupId.replace('@g.us', '')
-			const hppv = sender.id.replace('@c.us', '')
-			if (isGroupMsg) {
-				await kill.sendText(`595962252137-1607818244@g.us`, `⚠️ _Solicitud de soporte Respondida por_ *${pushname}* \n\n_Respuesta:_ ${body.slice(6)}`)
-				await kill.sendText(`595962252137-1607818244@g.us`, `Tienes mas problemas, o el admin que te respondio no te ha ayudado?, Contacta a aiden wa.me/595986460945`)
-			}
-			await kill.reply(from, 'Respuesta de reporte enviada', id)
-			break
 			
-        case 'enviar':
-			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
+        case 'helpre':
             const arka = body.trim().substring(body.indexOf(' ') + 1)
             if (args.length == 0) return kill.reply(from, 'Debe definir entre [-gp, -pv o -help] para usar!', id)
 			const gid = groupId.replace('@g.us', '').replace('c.us', '')
