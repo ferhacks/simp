@@ -3709,9 +3709,9 @@ case 'google':
 			}
             break
 
-			Case 'refreshh':
-			kill.refresh
-			break
+		case 'refreshh':
+		kill.refresh
+		break
 			
 			
 		case 'rank':
