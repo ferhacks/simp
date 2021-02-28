@@ -1139,7 +1139,7 @@ const double = Math.floor(Math.random() * 2) + 1
                 })
 			break
 
-        case 'mp3un':
+        case 'dp3':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
             if (args.length == 0) return kill.reply(from, 'Lo usaste incorrectamente.', id)
 			const cmdws = exec(`ytdl ${body.slice(5)}  | ffmpeg -i pipe:0 -b:a 192K -vn lib/myfile.mp3`, function(stderr, data) {
