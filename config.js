@@ -1139,6 +1139,18 @@ const double = Math.floor(Math.random() * 2) + 1
                 })
 			break
 
+        case 'mp3un':
+			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
+            if (args.length == 0) return kill.reply(from, 'Lo usaste incorrectamente.', id)
+			const cmdw = exec(`ytdl ${body.slice(5)}  | ffmpeg -i pipe:0 -b:a 192K -vn lib/myfile.mp3`, function(stderr, data) {
+				if (stderr) {
+					console.log(stderr)
+					kill.sendPtt(from, '.lib/myfile.mp3', id)
+				} else {
+					console.log(data)
+				}
+			})
+			break
 
         case 'mp4':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
