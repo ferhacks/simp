@@ -3692,12 +3692,12 @@ case 'google':
             if (args.length == 0) return kill.reply(from, 'Debe definir entre [-gp, -pv o -help] para usar!', id)
 			if (isGroupMsg) {
 				if (args[0] == '-gp') {
-				        await kill.sendText(`${args[1]}`, `⚠️ _Solicitud de soporte Respondida por_ *${pushname}* \n\n_Respuesta:_ ${helpad.split('|')[1]}`)
-				        await kill.sendText(`${args[1]}`, `Tienes mas problemas, o el admin que te respondio no te ha ayudado?, Contacta a aiden wa.me/595986460945`)
+				        await kill.sendText(`${args[1]}` + '@g.us', `⚠️ _Solicitud de soporte Respondida por_ *${pushname}* \n\n_Respuesta:_ ${helpad.split('|')[1]}`)
+				        await kill.sendText(`${args[1]}` + '@g.us', `Tienes mas problemas, o el admin que te respondio no te ha ayudado?, Contacta a aiden wa.me/595986460945`)
 					await kill.sendText(from, 'Respuesta de reporte enviada.')
 				} else if (args[0] == '-pv') {
-				        await kill.sendText(`${args[1]}`, `⚠️ _Solicitud de soporte Respondida por_ *${pushname}* \n\n_Respuesta:_ ${helpad.split('|')[1]}`)
-				        await kill.sendText(`${args[1]}`, `Tienes mas problemas, o el admin que te respondio no te ha ayudado?, Contacta a aiden wa.me/595986460945`)
+				        await kill.sendText(`${args[1]}` + '@c.us', `⚠️ _Solicitud de soporte Respondida por_ *${pushname}* \n\n_Respuesta:_ ${helpad.split('|')[1]}`)
+				        await kill.sendText(`${args[1]}` + '@c.us', `Tienes mas problemas, o el admin que te respondio no te ha ayudado?, Contacta a aiden wa.me/595986460945`)
 					await kill.sendText(from, 'Respuesta de reporte enviada.')
 				} else if (args[0] == '-help' || args[0] == '-h') {
 					await kill.reply(from, 'Para usar, escriba el comando y en el frente escriba -pv para privado, o -gp para grupos, y frente a ellos use el ID, separando el mensaje por |. Ejemplo:\n/enviar -gp 5299849****-174362736 | ola?\n\nPuede obtener ID con el comando / id y recuerde usarlos sin @c.us o @g.us.', id)
