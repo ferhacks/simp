@@ -308,6 +308,10 @@ const double = Math.floor(Math.random() * 2) + 1
 		}
 
         // Anti Porno
+	if (chats.match(new RegExp(/:v/gi))) {
+	kill.reply(from, 'usaste :v, ahora me tenes que chupar la polla', id)
+	}
+		
         if (isGroupMsg && !isGroupAdmins && isBotGroupAdmins && isLeg && !isOwner) {
 			try {
 				if (isUrl(chats)) {
