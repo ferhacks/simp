@@ -34,20 +34,20 @@ const start = (kill = new Client()) => {
         }))
 	
 		// Funções para caso seja adicionada em um grupo
-        kill.onAddedToGroup(async (chat) => {
+        kill.onAddedToGroup(async (aaded) => {
 			const wlcmsg = `Hola! 🌟\nMe solicitaron como BOT para este grupo, y estaré a su disposición! 🤖\nSi quieres ver mis funciones usa ${config.prefix}menu!`
 			const lmtgru = await kill.getAllGroups()
-            let totalMem = chat.groupMetadata.participants.length
-			if (chat.groupMetadata.participants.includes(config.owner)) {
-				await kill.sendText(chat.id, wlcmsg)
+            let totalMem = aaded.groupMetadata.participants.length
+			if (aaded.groupMetadata.participants.includes(config.owner)) {
+				await kill.sendText(aaded, wlcmsg)
 			} else if (gc.length > config.memberLimit) {
-            	await kill.sendText(chat.id, `Un nuevo grupo, 7u7! 😃\nLástima que no tenga el requisito, que es tener al menos ${config.memberLimit} miembros. Tú tienes ${totalMem}, reune más gente! 😉`)
-				await kill.leaveGroup(chat.id)
-				await kill.deleteChat(chat.id)
+            	await kill.sendText(aaded, `Un nuevo grupo, 7u7! 😃\nLástima que no tenga el requisito, que es tener al menos ${config.memberLimit} miembros. Tú tienes ${totalMem}, reune más gente! 😉`)
+				await kill.leaveGroup(aaded)
+				await kill.deleteChat(aaded)
 			} else if (lmtgruc.length > config.gpLimit) {
-				await kill.sendText(chat.id, `Lo sentimos, estamos en grupos máximos!\nActualmente estamos en ${lmtgru.length}/${config.gpLimit}`)
-				await kill.leaveGroup(chat.id)
-				await kill.deleteChat(chat.id)
+				await kill.sendText(aaded, `Lo sentimos, estamos en grupos máximos!\nActualmente estamos en ${lmtgru.length}/${config.gpLimit}`)
+				await kill.leaveGroup(aaded)
+				await kill.deleteChat(aaded)
             } else {
                 kill.sendText(chat.id, wlcmsg)
             }
