@@ -2268,8 +2268,6 @@ case 'google':
             }
             break
 			
-
-
         case 'meme':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
             ark = body.trim().substring(body.indexOf(' ') + 1)
@@ -2287,7 +2285,6 @@ case 'google':
                 await kill.reply(from, `Su uso es incorrecto baka ~idiot~ O.O \nUso correcto = /meme frase superior | frase inferior. \nLa frase inferior es opcional, si  desea dejala en blanco, pero utilice el | todavía así.`, id)
             }
             break
-			
 			
 		case 'unban':		
 		case 'unkick':
@@ -2651,7 +2648,7 @@ case 'google':
 			}
 			break
 			
-			
+
         case 'tits':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
             if (isGroupMsg) {
@@ -2710,7 +2707,38 @@ case 'google':
 			}
             break
 			
+
+			case 'fuck':
+				if (mute || pvmte) return console.log('Ignorando comando [Silence]')
+				fucks = body.trim().split(' ')
+				if (args.length == 1) {
+				const violador = author.replace('@c.us', '')
+				if (isGroupMsg) {
+					if (!isNsfw) return kill.reply(from, mess.error.Ac, id)
+						const chfuck = await axios.get('https://nekos.life/api/v2/img/anal')
+						kill.sendVideoAsGif(from, chfuck.data.url, id)
+						await kill.sendTextWithMentions(from, '@' + violador + 'Esta follando con' + fucks[1] + 'u///u')
+					}
+				} else {
+					await kill.reply(from, 'T-tienes que mencionar a alguien >///<', id)
+				}
+					break
 			
+		case 'cum':
+			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
+			fucks2 = body.trim().split(' ')
+			if (args.length == 1) {
+			const violador2 = author.replace('@c.us', '')
+			if (isGroupMsg) {
+				if (!isNsfw) return kill.reply(from, mess.error.Ac, id)
+					const chfuck2 = await axios.get('https://nekos.life/api/v2/img/cum')
+					kill.sendVideoAsGif(from, chfuck2.data.url, id)
+					await kill.sendTextWithMentions(from, '@' + violador2 + 'Se ha venido en ' + fucks2[1] + '>///<')
+				}
+			} else {
+				await kill.reply(from, 'T-tienes que mencionar a alguien >///<', id)
+			}
+				break		
 	    case 'milf':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
             if (isGroupMsg) {
@@ -3744,7 +3772,7 @@ case 'google':
             }
             break
 			
-			
+		
 	case 'level':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
             if (!isxp) return await kill.reply(from, 'Para usar esto, active el sistema XP.', id)
