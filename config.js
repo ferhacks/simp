@@ -2717,9 +2717,9 @@ case 'google':
 				if (args.length == 1) {
 				const violador = author.replace('@c.us', '')
 				if (isGroupMsg) {
-					if (!isNsfw) return kill.reply(from, mess.error.Ac, 'fuck.gif')
+					if (!isNsfw) return kill.reply(from, mess.error.Ac, id)
 						const chfuck = await axios.get('https://nekos.life/api/v2/img/anal')
-						kill.sendVideoAsGif(from, chfuck.data.url, id)
+						kill.sendVideoAsGif(from, chfuck.data.url, 'fuck.gif')
 						await sleep(5000)
 						await kill.sendTextWithMentions(from, '@' + violador + ' Esta follando con ' + fucks[1] + ' u///u')
 					}
