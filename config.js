@@ -2715,9 +2715,11 @@ case 'google':
 				const violador = author.replace('@c.us', '')
 				if (isGroupMsg) {
 					if (!isNsfw) return kill.reply(from, mess.error.Ac, id)
+						kill.setChatState(1, from)
 						const chfuck = await axios.get('https://nekos.life/api/v2/img/anal')
-						kill.sendVideoAsGif(from, chfuck.data.url, id)
-						await kill.sendTextWithMentions(from, '@' + violador + 'Esta follando con' + fucks[1] + 'u///u')
+						kill.sendMp4AsSticker(from, chfuck.data.url, id)
+						await sleep(5000)
+						await kill.sendTextWithMentions(from, '@' + violador + ' Esta follando con ' + fucks[1] + ' u///u')
 					}
 				} else {
 					await kill.reply(from, 'T-tienes que mencionar a alguien >///<', id)
@@ -2732,8 +2734,8 @@ case 'google':
 			if (isGroupMsg) {
 				if (!isNsfw) return kill.reply(from, mess.error.Ac, id)
 					const chfuck2 = await axios.get('https://nekos.life/api/v2/img/cum')
-					kill.sendVideoAsGif(from, chfuck2.data.url, id)
-					await kill.sendTextWithMentions(from, '@' + violador2 + 'Se ha venido en ' + fucks2[1] + '>///<')
+					kill.sendMp4AsSticker(from, chfuck2.data.url, id)
+					await kill.sendTextWithMentions(from, '@' + violador2 + ' Se ha venido en ' + fucks2[1] + ' >///<')
 				}
 			} else {
 				await kill.reply(from, 'T-tienes que mencionar a alguien >///<', id)
