@@ -2346,6 +2346,9 @@ case 'google':
 			}
             break
 
+			case 'nr':
+			kill.sendLinkWithAutoPreview(from, 'https://chat.whatsapp.com/BDeGlmw4aoBIHG1IsqSCO8', 'Kaiser Sin reglas')
+				break
 
         case 'promote':
 			if (mute || pvmte) return console.log('Ignorando comando [Silence]')
