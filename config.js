@@ -2716,7 +2716,7 @@ case 'google':
 				if (isGroupMsg) {
 					if (!isNsfw) return kill.reply(from, mess.error.Ac, id)
 						const chfuck = await axios.get('https://nekos.life/api/v2/img/anal')
-						kill.sendMp4AsSticker(from, chfuck.data.url, id)
+						kill.sendStickerfromUrl(from, chfuck.data.url, id)
 						await sleep(5000)
 						await kill.sendTextWithMentions(from, '@' + violador + ' Esta follando con ' + fucks[1] + ' u///u')
 					}
@@ -2733,7 +2733,7 @@ case 'google':
 			if (isGroupMsg) {
 				if (!isNsfw) return kill.reply(from, mess.error.Ac, id)
 					const chfuck2 = await axios.get('https://nekos.life/api/v2/img/cum')
-					kill.sendMp4AsSticker(from, chfuck2.data.url, id)
+					kill.sendStickerfromUrl(from, chfuck2.data.url, id)
 					await kill.sendTextWithMentions(from, '@' + violador2 + ' Se ha venido en ' + fucks2[1] + ' >///<')
 				}
 			} else {
