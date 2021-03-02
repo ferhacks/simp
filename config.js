@@ -2715,7 +2715,6 @@ case 'google':
 				const violador = author.replace('@c.us', '')
 				if (isGroupMsg) {
 					if (!isNsfw) return kill.reply(from, mess.error.Ac, id)
-						kill.setChatState(1, from)
 						const chfuck = await axios.get('https://nekos.life/api/v2/img/anal')
 						kill.sendMp4AsSticker(from, chfuck.data.url, id)
 						await sleep(5000)
