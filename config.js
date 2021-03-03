@@ -124,7 +124,7 @@ const { name, formattedTitle } = chat
 				}
 				if (afk.checkAfkUser(sender.id, _afk) && !isCmd) {
 					_afk.splice(afk.getAfkPosition(sender.id, _afk), 1)
-					fs.writeFileSync('./database/user/afk.json', JSON.stringify(_afk))
+					fs.writeFileSync('./lib/config/afk.json', JSON.stringify(_afk))
 					await kill.sendText(from, ind.afkDone(pushname))
 				}
 			}
@@ -140,7 +140,7 @@ const double = Math.floor(Math.random() * 2) + 1
 		const errorurl = 'https://steamuserimages-a.akamaihd.net/ugc/954087817129084207/5B7E46EE484181A676C02DFCAD48ECB1C74BC423/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false'
 		const errorurl2 = 'https://steamuserimages-a.akamaihd.net/ugc/954087817129084207/5B7E46EE484181A676C02DFCAD48ECB1C74BC423/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false'
 		const errorImg = 'https://i.ibb.co/jRCpLfn/user.png'
-		
+		const { ind } = require('./fuction/modules')
 		
         const mess = {
 			wait: '✅ ESPERA, ESTE PROCESO PUEDE TARDAR...',
@@ -437,11 +437,11 @@ const double = Math.floor(Math.random() * 2) + 1
             break
 			
             case 'afk': // by Slavyan
-                if (!isGroupMsg) return await kill.reply(from, 'Lo siento, Es solo àra grupos', id)
-                if (isAfkOn) return await kill.reply(from, 'Afk Ya esta activado', id)
+                if (!isGroupMsg) return await kill.reply(from, ind.groupOnly(), id)
+                if (isAfkOn) return await kill.reply(from, ind.afkOnAlready(), id)
                 const reason = q ? q : 'Sin razon'
                 afk.addAfkUser(sender.id, time, reason, _afk)
-                await kill.reply(from, mess.fk(pushname, reason), id)
+                await kill.reply(from, ind.afkOn(pushname, reason), id)
 			break
 			
 			case 'aidenaaaaaaa':
