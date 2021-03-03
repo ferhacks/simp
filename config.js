@@ -330,9 +330,14 @@ const double = Math.floor(Math.random() * 2) + 1
 		}
 
 		// ty
-		if (chats.match(/(callao)/gi)) {
-		kill.reply(from, 'pesao',id)}
+        if (chats == 'kaiser') {
+            if (!isGroupMsg) await kill.reply(from, `Kaiser ? El mismísimo traga tulas`, id)
+        }
 
+				// ty
+				if (chats == 'ayoub') {
+					if (!isGroupMsg) await kill.reply(from, `cállate ayoub puto pesao`, id)
+				}
         // Anti Porno
         if (isGroupMsg && !isGroupAdmins && isBotGroupAdmins && isLeg && !isOwner) {
 			try {
