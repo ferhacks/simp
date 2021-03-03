@@ -143,7 +143,8 @@ const double = Math.floor(Math.random() * 2) + 1
 		
 		
         const mess = {
-            wait: '✅ ESPERA, ESTE PROCESO PUEDE TARDAR...',
+			wait: '✅ ESPERA, ESTE PROCESO PUEDE TARDAR...',
+			fk: 'Afk Activado',
             error: {
                 St: 'Lo usaste mal jaja!\nPara usar esto, envíe o etiquete una foto con este mensaje, si es un gif, use el comando */gif*.',
                 Ki: 'Para eliminar administradores, primero debe eliminar su ADM.',
@@ -154,7 +155,7 @@ const double = Math.floor(Math.random() * 2) + 1
 				Gp: 'Lo siento, pero este es un comando para grupos..',
 				Ac: 'Solo los grupos que permiten contenido +18 pueden usar comandos como este, si usted es el propietario y desea esto, use /nsfw enable o use en PV.',
 				Ba: 'Estimado administrador, si desea que use estos comandos, debe dejarme ser un admin!',
-                Iv: '¿Este enlace es correcto? Me parece mal...'
+				Iv: '¿Este enlace es correcto? Me parece mal...'
             }
         }
 	
@@ -440,7 +441,7 @@ const double = Math.floor(Math.random() * 2) + 1
                 if (isAfkOn) return await kill.reply(from, 'Afk Ya esta activado', id)
                 const reason = q ? q : 'Sin razon'
                 afk.addAfkUser(sender.id, time, reason, _afk)
-                await kill.reply(from, 'Afk activado,'(pushname, reason), id)
+                await kill.reply(from, mess.fk(pushname, reason), id)
 			break
 			
 			case 'aidenaaaaaaa':
