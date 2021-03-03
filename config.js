@@ -33,7 +33,6 @@ const { afk } = require('./fuction')
 const {rank, meme, msgFilter, translate, ngtts, killo } = require('./lib')
 const { uploadImages } = require('./lib/fether')
 const feature = require('./lib/poll')
-const q = args.join(' ')
 const { sobre } = require('./lib/sobre')
 const { belle } = require('./lib/belle')
 const BrainlySearch = require('./lib/brainly')
@@ -93,7 +92,8 @@ const { name, formattedTitle } = chat
 		const processTime = (timestamp, now) => { return moment.duration(now - moment(timestamp * 1000)).asSeconds() }
         const command = body.slice(1).trim().split(/ +/).shift().toLowerCase()
 		const arg = body.trim().substring(body.indexOf(' ') + 1)
-        const args = body.trim().split(/ +/).slice(1)
+		const args = body.trim().split(/ +/).slice(1)
+		const q = args.join(' ')
         const isCmd = body.startsWith(prefix)
         const url = args.length !== 0 ? args[0] : ''
         const uaOverride = process.env.UserAgent
