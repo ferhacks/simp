@@ -29,6 +29,7 @@ const { owner, donate, down, help, admins, adult, readme, lang, convh } = requir
 const { stdout } = require('process')
 const bent = require('bent')
 const { doing } = require('./lib/translate.js')
+const { afk } = require('./fuction')
 const {rank, meme, msgFilter, translate, ngtts, killo } = require('./lib')
 const { uploadImages } = require('./lib/fether')
 const feature = require('./lib/poll')
@@ -46,6 +47,7 @@ aki.start()
 
 
 // JSON'S 
+const _afk = JSON.parse(fs.readFileSync('./lib/config/afk.json'))
 const nsfw_ = JSON.parse(fs.readFileSync('./lib/config/NSFW.json'))
 const welkom = JSON.parse(fs.readFileSync('./lib/config/welcome.json'))
 const exsv = JSON.parse(fs.readFileSync('./lib/config/exclusive.json'))
@@ -81,7 +83,8 @@ const { name, formattedTitle } = chat
         const groupAdmins = isGroupMsg ? await kill.getGroupAdmins(groupId) : ''
         const isGroupAdmins = isGroupMsg ? groupAdmins.includes(sender.id) : false
         const isBotGroupAdmins = isGroupMsg ? groupAdmins.includes(botNumber + '@c.us') : false
-        const isNsfw = isGroupMsg ? nsfw_.includes(chat.id) : false
+		const isNsfw = isGroupMsg ? nsfw_.includes(chat.id) : false
+		const isAfkOn = afk.checkAfkUser(sender.id, _afk)
         const autoSticker = isGroupMsg ? atstk.includes(groupId) : false
         const chats = (type === 'chat') ? body : ((type === 'image' || type === 'video')) ? caption : ''
         body = (type === 'chat' && body.startsWith(prefix)) ? body : (((type === 'image' || type === 'video') && caption) && caption.startsWith(prefix)) ? caption : ''
@@ -107,7 +110,23 @@ const { name, formattedTitle } = chat
         global.pollfile = 'poll_Config_'+chat.id+'.json'
         global.voterslistfile = 'poll_voters_Config_'+chat.id+'.json'
 	
-		
+	
+		       // AFK by Slavyan
+			   if (isGroupMsg) {
+				for (let ment of mentionedJidList) {
+					if (afk.checkAfkUser(ment, _afk)) {
+						const getId = afk.getAfkId(ment, _afk)
+						const getReason = afk.getAfkReason(getId, _afk)
+						const getTime = afk.getAfkTime(getId, _afk)
+						await bocchi.reply(from, ind.afkMentioned(getReason, getTime), id)
+					}
+				}
+				if (afk.checkAfkUser(sender.id, _afk) && !isCmd) {
+					_afk.splice(afk.getAfkPosition(sender.id, _afk), 1)
+					fs.writeFileSync('./database/user/afk.json', JSON.stringify(_afk))
+					await bocchi.sendText(from, ind.afkDone(pushname))
+				}
+			}
 		// OUTRAS
 const double = Math.floor(Math.random() * 2) + 1
         const four = Math.floor(Math.random() * 4) + 1
@@ -415,7 +434,16 @@ const double = Math.floor(Math.random() * 2) + 1
             }
             break
 			
-		case 'aidenaaaaaaa':
+            case 'afk': // by Slavyan
+                if (!isGroupMsg) return await kill.reply(from, 'Lo siento, Es solo àra grupos', id)
+                if (isAfkOn) return await bocchi.reply(from, 'Afk Ya esta activado', id)
+                limit.addLimit(sender.id, _limit, isPremium, isOwner)
+                const reason = q ? q : 'Sin razon'
+                afk.addAfkUser(sender.id, time, reason, _afk)
+                await bocchi.reply(from, ind.afkOn(pushname, reason), id)
+			break
+			
+			case 'aidenaaaaaaa':
 		case 'aidenaaaaaaaa':
 			//SI VAN A MODIFICAR EL BOT, PORFAVOR NO QUITAR NI MODIFICAR ESTA PARTE PORFAVOR, GRACIAS.
     			await kill.reply(from, '😍🤗 *GRACIAS POR INTERESARTE EN MI* Y GRACIAS POR USAR MI BOT\n\n*TE GUSTARIA APOYARME?😖*\nPls no es complicado, solo te pido una suscripcion a mi canal:D\nSI?😰\nAIIII GRACIAS☺, AVER PS, AQUI TE DEJO MI CANAL:D\n\nhttps://www.youtube.com/channel/UCHD4T8Pfcv5PFVzsAbfAPZA\n\n_SI COMPARTES ME AYUDARIAS MAS_ *GRACIAS!😉*', id)
