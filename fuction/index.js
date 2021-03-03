@@ -1,2 +1,2 @@
 exports.afk = require('./afk')
-exports.ind = require('./ind')
+exports.ind = require('./modules')

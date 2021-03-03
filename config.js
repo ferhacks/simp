@@ -329,11 +329,11 @@ const double = Math.floor(Math.random() * 2) + 1
 			}
 		}
 
+		// ty
+		if (chats.match(/(callao)/gi)) {
+		kill.reply(from, 'pesao',id)}
+
         // Anti Porno
-	if (chats.match(new RegExp(/:v/gi))) {
-	kill.reply(from, 'usaste :v, ahora me tenes que chupar la polla', id)
-	}
-		
         if (isGroupMsg && !isGroupAdmins && isBotGroupAdmins && isLeg && !isOwner) {
 			try {
 				if (isUrl(chats)) {
@@ -353,6 +353,8 @@ const double = Math.floor(Math.random() * 2) + 1
 				return
 			}
 		}
+
+
 		
 
         // Auto-sticker
@@ -387,6 +389,8 @@ const double = Math.floor(Math.random() * 2) + 1
         // Impede SPAM
         if (isCmd && !isOwner) msgFilter.addFilter(from)
 	
+	//[AUTO READ] Auto read message 
+	kill.sendSeen(chatId)
 
         switch(command) {
 
