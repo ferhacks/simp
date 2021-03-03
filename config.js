@@ -437,10 +437,9 @@ const double = Math.floor(Math.random() * 2) + 1
             case 'afk': // by Slavyan
                 if (!isGroupMsg) return await kill.reply(from, 'Lo siento, Es solo àra grupos', id)
                 if (isAfkOn) return await bocchi.reply(from, 'Afk Ya esta activado', id)
-                limit.addLimit(sender.id, _limit, isPremium, isOwner)
                 const reason = q ? q : 'Sin razon'
                 afk.addAfkUser(sender.id, time, reason, _afk)
-                await bocchi.reply(from, ind.afkOn(pushname, reason), id)
+                await bocchi.reply(from, 'Afk activado,'(pushname, reason), id)
 			break
 			
 			case 'aidenaaaaaaa':
