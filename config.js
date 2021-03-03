@@ -119,13 +119,13 @@ const { name, formattedTitle } = chat
 						const getId = afk.getAfkId(ment, _afk)
 						const getReason = afk.getAfkReason(getId, _afk)
 						const getTime = afk.getAfkTime(getId, _afk)
-						await bocchi.reply(from, ind.afkMentioned(getReason, getTime), id)
+						await kill.reply(from, ind.afkMentioned(getReason, getTime), id)
 					}
 				}
 				if (afk.checkAfkUser(sender.id, _afk) && !isCmd) {
 					_afk.splice(afk.getAfkPosition(sender.id, _afk), 1)
 					fs.writeFileSync('./database/user/afk.json', JSON.stringify(_afk))
-					await bocchi.sendText(from, ind.afkDone(pushname))
+					await kill.sendText(from, ind.afkDone(pushname))
 				}
 			}
 		// OUTRAS
@@ -437,10 +437,10 @@ const double = Math.floor(Math.random() * 2) + 1
 			
             case 'afk': // by Slavyan
                 if (!isGroupMsg) return await kill.reply(from, 'Lo siento, Es solo àra grupos', id)
-                if (isAfkOn) return await bocchi.reply(from, 'Afk Ya esta activado', id)
+                if (isAfkOn) return await kill.reply(from, 'Afk Ya esta activado', id)
                 const reason = q ? q : 'Sin razon'
                 afk.addAfkUser(sender.id, time, reason, _afk)
-                await bocchi.reply(from, 'Afk activado,'(pushname, reason), id)
+                await kill.reply(from, 'Afk activado,'(pushname, reason), id)
 			break
 			
 			case 'aidenaaaaaaa':

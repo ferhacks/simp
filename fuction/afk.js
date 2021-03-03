@@ -10,7 +10,7 @@ const fs = require('fs-extra')
 const addAfkUser = (userId, time, reason, _dir) => {
     const obj = { id: userId, time: time, reason: reason }
     _dir.push(obj)
-    fs.writeFileSync('./database/user/afk.json', JSON.stringify(_dir))
+    fs.writeFileSync('./lib/config/afk.json', JSON.stringify(_dir))
 }
 
 /**
