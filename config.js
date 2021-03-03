@@ -109,7 +109,8 @@ const { name, formattedTitle } = chat
         const isImage = type === 'image'
         const isVideo = type === 'video'
         global.pollfile = 'poll_Config_'+chat.id+'.json'
-        global.voterslistfile = 'poll_voters_Config_'+chat.id+'.json'
+		global.voterslistfile = 'poll_voters_Config_'+chat.id+'.json'
+		const { ind } = require('./fuction/index')
 	
 	
 		       // AFK by Slavyan
@@ -140,7 +141,7 @@ const double = Math.floor(Math.random() * 2) + 1
 		const errorurl = 'https://steamuserimages-a.akamaihd.net/ugc/954087817129084207/5B7E46EE484181A676C02DFCAD48ECB1C74BC423/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false'
 		const errorurl2 = 'https://steamuserimages-a.akamaihd.net/ugc/954087817129084207/5B7E46EE484181A676C02DFCAD48ECB1C74BC423/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false'
 		const errorImg = 'https://i.ibb.co/jRCpLfn/user.png'
-		const { ind } = require('./fuction/modules')
+		
 		
         const mess = {
 			wait: '✅ ESPERA, ESTE PROCESO PUEDE TARDAR...',
